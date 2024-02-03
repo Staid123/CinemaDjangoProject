@@ -1,0 +1,47 @@
+body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+
+/* Общий контейнер */
+.container {
+     position: relative;
+     max-width: 100%;
+}
+
+/* Стили для изображения */
+.image {
+      width: 25%;
+      height: 90vh;
+      transition: filter 0.5s ease; /* Анимация блюра при изменении фильтра */
+      float: left;
+      }
+
+/* Стили для текста */
+.text {
+      position: absolute;
+      top: 90%;
+      left: 10%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: opacity 0.5s ease; /* Анимация появления/исчезновения текста */
+}
+
+/* Скрыть текст по умолчанию */
+.text:hover {
+     opacity: 0;
+}
+
+/* Показать текст при наведении на контейнер */
+.container:hover .text {
+        opacity: 1;
+ }
+
+/* Эффект блюра при наведении на контейнер */
+.container:hover .image {
+        filter: blur(4px); /* Измените значение по вашему желанию */
+}

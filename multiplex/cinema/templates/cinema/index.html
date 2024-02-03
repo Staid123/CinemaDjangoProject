@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Основная страница</title>
+    <link type="text/css" href="{% static 'cinema/css/styles.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+{% for movie in movies %}
+<div class="container">
+    <img class="image" src="{{ movie.preview.url }}" alt="Ваше изображение">
+    <div class="text">
+        <a href="{% url 'home' %}">{{movie.title}}</a>
+    </div>
+</div>
+
+{% endfor %}
+</body>
+</html>
