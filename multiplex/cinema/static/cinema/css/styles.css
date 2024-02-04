@@ -34,7 +34,6 @@ body, html {
       font-size: 24px;
       text-align: center;
       cursor: pointer;
-
 }
 
 
@@ -67,4 +66,64 @@ body, html {
     height: 35%; /* Высота затемненной области */
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1.0)); /* Градиентный фон от прозрачного до полупрозрачного черного */
     pointer-events: none; /* Позволяет кликать сквозь overlay */
+}
+
+.site-header {
+    background-color: #221f1f;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    height: 60px;
+}
+
+.menu-icon {
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    background: url('../images/menu.svg') no-repeat 0px;
+    float: left;
+}
+
+.site-logo {
+    background: url('../images/logo.svg') no-repeat 0px;
+    height: 60px;
+    width: auto;
+    float: left;
+    background-size: contain;
+}
+
+.city {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    float: right;
+}
+
+.current-city {
+    margin-right: 5px;
+    float: right;
+}
+
+.city-dropdown {
+    font-size: 14px;
+    float: right;
+}
+
+.divider {
+    margin: 0 10px;
+    color: #fff;
+    float: right;
+}
+
+.login-button {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
 }

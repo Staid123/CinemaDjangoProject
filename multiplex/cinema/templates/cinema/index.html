@@ -2,10 +2,32 @@
 {% load static %}
 <html>
 <head>
-    <title>Основная страница</title>
+    <title>Сейчас в кино</title>
     <link type="text/css" href="{% static 'cinema/css/styles.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{% static 'cinema/css/images/logo.svg' %}" type="image/x-icon"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+<!-- Шапка сайта -->
+<header class="site-header">
+    <!-- Иконка меню -->
+    <div class="menu-icon"></div>
+    <!-- Логотип сайта -->
+    <div class="site-logo"></div>
+    <!-- Город и выбор города -->
+    <div class="city">
+        <span class="current-city">Город</span>
+        <span class="city-dropdown">&#9660;</span>
+    </div>
+    <!-- Разделитель -->
+    <div class="divider">|</div>
+    <!-- Кнопка "Войти" -->
+    <button class="login-button">Войти</button>
+</header>
+
+
 
 {% for movie in movies %}
 <div class="container">
