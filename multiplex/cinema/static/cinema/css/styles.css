@@ -2,46 +2,69 @@ body, html {
         margin: 0;
         padding: 0;
         height: 100%;
+        background-color: black;
+        font-family: Helvetica;
+        font-style: sans-serif;
+        font-weight: bold;
         }
 
 /* Общий контейнер */
 .container {
      position: relative;
      max-width: 100%;
+     float: left; /* Добавим float: left для размещения контейнеров в ряд */
 }
 
 /* Стили для изображения */
 .image {
-      width: 25%;
+      width: 100%;
       height: 90vh;
       transition: filter 0.5s ease; /* Анимация блюра при изменении фильтра */
       float: left;
+      object-fit: cover; /* Заполнение контейнера изображением с сохранением пропорций */
+      margin: 2px;
       }
 
 /* Стили для текста */
 .text {
       position: absolute;
-      top: 90%;
-      left: 10%;
-      transform: translate(-50%, -50%);
-      color: white;
+      bottom: 50px; /* Используем bottom, чтобы разместить текст внизу контейнера */
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 24px;
       text-align: center;
       cursor: pointer;
-      transition: opacity 0.5s ease; /* Анимация появления/исчезновения текста */
+
 }
 
-/* Скрыть текст по умолчанию */
-.text:hover {
-     opacity: 0;
+
+.container .text a:hover {
+    color: red;
+    cursor: pointer;
+}
+
+
+.container .text a {
+    color: white;
+    text-decoration: None;
 }
 
 /* Показать текст при наведении на контейнер */
-.container:hover .text {
-        opacity: 1;
+.container:hover .text a {
+    opacity: 1;
  }
 
 /* Эффект блюра при наведении на контейнер */
 .container:hover .image {
-        filter: blur(4px); /* Измените значение по вашему желанию */
+   filter: blur(4px); /* Измените значение по вашему желанию */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%; /* Высота затемненной области */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1.0)); /* Градиентный фон от прозрачного до полупрозрачного черного */
+    pointer-events: none; /* Позволяет кликать сквозь overlay */
 }
