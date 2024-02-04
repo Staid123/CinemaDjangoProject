@@ -9,12 +9,16 @@
 
 {% for movie in movies %}
 <div class="container">
-    <img class="image" src="{{ movie.preview.url }}" alt="Ваше изображение">
+    <img class="image" src="{{ movie.preview.url }}" alt="Изображение">
+    <div class="overlay"></div>
     <div class="text">
-        <a href="{% url 'home' %}">{{movie.title}}</a>
+        <span><a href="{% url 'home' %}">{{movie.title}}</a></span>
     </div>
 </div>
 
 {% endfor %}
+
+
+
 </body>
 </html>
