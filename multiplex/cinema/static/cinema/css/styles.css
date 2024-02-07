@@ -87,11 +87,8 @@ body, html {
 }
 
 .site-logo {
-    background: url('../images/logo.svg') no-repeat 0px;
-    height: 60px;
     width: auto;
     float: left;
-    background-size: contain;
 }
 
 .city {
