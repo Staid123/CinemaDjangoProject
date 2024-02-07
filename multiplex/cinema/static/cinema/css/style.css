@@ -1,0 +1,55 @@
+/* Стили для текста в поле поиска */
+form input::placeholder {
+    color: white !important;
+}
+
+img.logo {
+    height: 60px;
+    width: auto;
+}
+
+header.p-3 {
+    padding: 7px !important;
+}
+
+img.menu {
+    height: 50px;
+    width: auto;
+}
+
+/* Добавленный стиль для кнопки "Искать" */
+form button.btn-outline-success {
+    color: red !important;           /* Цвет текста */
+    border-color: red !important;    /* Цвет обводки */
+}
+
+/* Стиль для кнопки "Искать" при наведении на текст */
+form button.btn-outline-success:hover {
+    color: white !important;
+    background-color: red !important;
+
+}
+
+button.btn.btn-primary {
+    background: none;
+    border: none;
+}
+
+div.offcanvas-body {
+    background-color: RGBA(var(--bs-dark-rgb), var(--bs-bg-opacity, 1));
+    color: white;
+    border: white;
+}
+
+div.offcanvas-header {
+    background-color: RGBA(var(--bs-dark-rgb), var(--bs-bg-opacity, 1));
+    color: white;
+}
+
+.me-12 {
+    margin-left: 12rem;
+}
+
+.red-button:focus {
+    border-color: red;
+}
