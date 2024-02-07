@@ -2,45 +2,65 @@
 {% load static %}
 <html>
 <head>
-    <title>Сейчас в кино</title>
-    <link type="text/css" href="{% static 'cinema/css/styles.css' %}" rel="stylesheet" />
-    <link rel="shortcut icon" href="{% static 'cinema/css/images/logo.svg' %}" type="image/x-icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сейчас в кино</title>
+    <link type="text/css" href="{% static 'cinema/css/bootstrap.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'cinema/css/style.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{% static 'cinema/css/images/logo.svg' %}" type="image/x-icon"/>
 </head>
-<body>
 
-<!-- Шапка сайта -->
-<header class="site-header">
-    <!-- Иконка меню -->
-    <div class="menu-icon"></div>
-    <!-- Логотип сайта -->
-    <div class="site-logo"></div>
-    <!-- Город и выбор города -->
-    <div class="city">
-        <span class="current-city">Город</span>
-        <span class="city-dropdown">&#9660;</span>
+<header class="p-3 text-bg-dark">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between">
+
+            <!-- Изменил классы и добавил d-flex -->
+            <div class="d-flex align-items-center">
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><img class="menu" src="{% static 'cinema/images/menu.svg' %}" alt="Multiplex"></button>
+                <!-- offcanvas -->
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <p>Try scrolling the rest of the page to see this option in action.</p>
+                  </div>
+                </div>
+                <a href="{% url 'home' %}" class="d-flex align-items-center text-white text-decoration-none">
+                    <img class="logo" src="{% static 'cinema/images/logo.svg' %}" alt="Multiplex">
+                </a>
+            </div>
+
+            <form class="d-flex col-lg-auto mb-2 mb-lg-0 me-12" role="search">
+                <!-- Добавил классы me-2 и mb-3 -->
+                <input type="search" class="form-control form-control-dark text-bg-dark me-2 red-button" placeholder="Искать фильм..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Искать</button>
+            </form>
+
+            <div class="d-flex align-items-center"> <!-- Обернул в d-flex -->
+                <!-- Добавлена секция выбора -->
+                <div class="me-2">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+
+                <!-- Кнопки Войти и Регистрация -->
+                <button type="button" class="btn btn-outline-light me-2">Войти</button>
+                <button type="button" class="btn btn-warning">Регистрация</button>
+            </div>
+
+        </div>
     </div>
-    <!-- Разделитель -->
-    <div class="divider">|</div>
-    <!-- Кнопка "Войти" -->
-    <button class="login-button">Войти</button>
 </header>
 
+<body>
 
-
-{% for movie in movies %}
-<div class="container">
-    <img class="image" src="{{ movie.preview.url }}" alt="Изображение">
-    <div class="overlay"></div>
-    <div class="text">
-        <span><a href="{% url 'home' %}">{{movie.title}}</a></span>
-    </div>
-</div>
-
-{% endfor %}
-
-
-
+<!-- bootstrap js -->
+<script type="text/javascript" src="../../../static/cinema/js/bootstrap.min.js"></script>
 </body>
 </html>
