@@ -4,8 +4,9 @@ form input::placeholder {
 }
 
 img.logo {
+    position: relative;
     height: 60px;
-    width: auto;
+    left: 50px;
 }
 
 header.p-3 {
@@ -13,8 +14,14 @@ header.p-3 {
 }
 
 img.menu {
+    position: relative;
     height: 50px;
     width: auto;
+    right: 100px;
+}
+
+.btn-primary {
+    --bs-btn-active-bg: none;
 }
 
 /* Добавленный стиль для кнопки "Искать" */
@@ -31,8 +38,10 @@ form button.btn-outline-success:hover {
 }
 
 button.btn.btn-primary {
+    position: absolute;
     background: none;
     border: none;
+    left: 100px;
 }
 
 div.offcanvas-header {
@@ -120,4 +129,91 @@ div.offcanvas-body div a:hover {
     font-size: 10px;
     align-items: center;
     justify-content: center;
+}
+
+.offcanvas.offcanvas-start {
+    transform: translateX(-100%);
+    transition: transform 0.21s ease;
+}
+
+.offcanvas.offcanvas-end {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.smith {
+    height: 20px;
+    width: 20px;
+}
+
+body {
+    color: white;
+    background-color: #000007 !important;
+}
+
+.vh-80 {
+    width: 80vh;
+    height: 80vh !important;
+}
+
+.flex_flow {
+    flex-flow: row wrap;
+}
+
+a.display-5 {
+    display: block;
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a.display-5:hover {
+    color: red;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 46vh;
+    height: auto;
+    filter: blur(0); /* Начальное значение размытия */
+    transition: filter 1s; /* Анимация при изменении свойства filter */
+}
+
+.overlay {
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 display: none;
+	 background-color: rgba(255, 255, 255, 0.1);
+	/* Изменено значение на прозрачное */
+	 justify-content: flex-start;
+	/* Изменено значение на flex-start */
+	 align-items: flex-start;
+	/* Изменено значение на flex-start */
+	 padding: 20px;
+	/* Добавлен отступ для кнопки */
+}
+
+.overlay button {
+	background: none;
+	border: none;
+	color: red;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.image-container:hover img {
+	filter: blur(7px);
+	/* Изменено значение размытия при наведении */
+}
+
+.image-container:hover .overlay {
+	display: flex;
 }
