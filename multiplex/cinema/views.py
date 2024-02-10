@@ -12,9 +12,9 @@ def home_view(request):
     return render(request, 'cinema/index.html', {'movies': movies})
 
 
-def show_post(request, post_slug):
+def show_post(request, movie_slug):
 
     """ Подробнее о фильме """
 
-    post = get_object_or_404(Movie, slug=post_slug)
-    return render(request, 'cinema/post.html')
+    movie = get_object_or_404(Movie, slug=movie_slug)
+    return render(request, 'cinema/post.html', {'movie': movie})
