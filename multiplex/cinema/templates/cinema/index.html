@@ -1,77 +1,6 @@
-<!DOCTYPE html> {% load static %}
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Сейчас в кино</title>
-	<link rel="stylesheet" href="{% static 'cinema/css/bootstrap.css' %}">
-	<link rel="stylesheet" href="{% static 'cinema/css/style.css' %}">
-</head>
-
-<header class="p-3 text-bg-dark">
-	<div class="container-fluid">
-		<div class="d-flex align-items-center justify-content-between">
-			<div> <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                        <img class="menu" src="{% static 'cinema/images/menu.svg' %}" alt="Multiplex">
-                    </button>
-				<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-					<div class="offcanvas-header"> <img class="off-canvas-logo" src="{% static 'cinema/images/logo.svg' %}" alt="Multiplex"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
-					<div class="offcanvas-body">
-						<div class="list"> <a href="#">Сейчас в кино</a> <a href="#">Скоро в прокате</a> <a href="#">Купить попкорн онлайн</a> <a href="#">Акции и скидки</a> <a href="#">Кинотеатры</a> <a href="#">Возврат билетов</a> <a href="#">Помощь</a> <a href="#">О компании</a> </div>
-						<div class="menu-block-heading">Личный кабинет <button type="button" class="btn btn-outline-light mt-2">Войти</button> </div>
-						<div class="menu-block-heading">Мы в социальных сетях <a class="menu_soc_item" href="https://www.facebook.com/uamultiplex" rel="nofollow" target="_blank">
-                                <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.0422 22V14.4923H10V11.7892H12.0422V9.4804C12.0422 7.66611 13.2486 6 16.0282 6C17.1537 6 17.9859 6.10488 17.9859 6.10488L17.9203 8.62914C17.9203 8.62914 17.0716 8.6211 16.1454 8.6211C15.143 8.6211 14.9824 9.07014 14.9824 9.81544V11.7892H18L17.8687 14.4923H14.9824V22H12.0422Z" fill="white"></path>
-                                    <rect class="hover-border" height="27" rx="7.5" stroke="red" width="27" x="0.5" y="0.5"></rect>
-                                </svg>
-					            Facebook</a> <a class="menu_soc_item me-1" href="https://www.youtube.com/user/MultiplexChannel" rel="nofollow" target="_blank">
-                                <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_1419_7416)">
-                                        <path d="M21.6667 10.338C21.5761 10.0148 21.3996 9.7222 21.156 9.4913C20.9055 9.25331 20.5985 9.08306 20.264 8.99664C19.012 8.66664 13.996 8.66664 13.996 8.66664C11.9049 8.64284 9.81427 8.74749 7.73598 8.97997C7.40144 9.07278 7.09503 9.24683 6.84398 9.48664C6.59732 9.72397 6.41865 10.0166 6.32532 10.3373C6.10111 11.5451 5.99218 12.7715 5.99998 14C5.99198 15.2273 6.10065 16.4533 6.32532 17.6626C6.41665 17.982 6.59465 18.2733 6.84198 18.5086C7.08932 18.744 7.39732 18.914 7.73598 19.004C9.00465 19.3333 13.996 19.3333 13.996 19.3333C16.0898 19.3571 18.183 19.2525 20.264 19.02C20.5985 18.9335 20.9055 18.7633 21.156 18.5253C21.3995 18.2945 21.5758 18.0018 21.666 17.6786C21.896 16.4713 22.0079 15.2444 22 14.0153C22.0173 12.781 21.9056 11.5483 21.6667 10.3373V10.338ZM12.4013 16.2826V11.718L16.5747 14.0006L12.4013 16.2826Z" fill="white"></path>
-
-                                    </g>
-                                    <rect class="hover-border" height="27" rx="7.5" stroke="red" width="27" x="0.5" y="0.5"></rect>
-                                    <defs>
-                                        <clipPath id="clip0_1419_7416">
-                                            <rect fill="white" height="16" transform="translate(6 6)" width="16"></rect>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                                Youtube
-                              </a> <a class="menu_soc_item ms-2" href="https://www.instagram.com/multiplex_official/" rel="nofollow" target="_blank">
-                                <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="13.5769" cy="13.8125" rx="5.84615" ry="5.9375" stroke="white" stroke-width="1.5"></ellipse>
-                                    <ellipse cx="20.8216" cy="6.45455" fill="white" rx="1.67832" ry="1.70455"></ellipse>
-                                    <rect class="hover-border" height="27" rx="7.5" stroke="red" width="27" x="0.5" y="0.5"></rect>
-                                </svg>
-                                Instagram
-                              </a> <a class="menu_soc_item" href="https://t.me/super_cheese">
-                                <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd" d="M7.09992 13.0733C11.3949 11.1916 14.2589 9.95115 15.6919 9.35181C19.7834 7.64056 20.6335 7.34329 21.1877 7.33348C21.3095 7.33132 21.5821 7.36169 21.7586 7.50572C21.9076 7.62734 21.9486 7.79162 21.9683 7.90692C21.9879 8.02223 22.0123 8.2849 21.9929 8.49013C21.7712 10.8327 20.8118 16.5175 20.3237 19.1412C20.1172 20.2514 19.7105 20.6237 19.3169 20.6601C18.4613 20.7393 17.8116 20.0915 16.9829 19.5453C15.6862 18.6906 14.9537 18.1585 13.695 17.3245C12.2404 16.3606 13.1834 15.8308 14.0124 14.965C14.2293 14.7385 17.999 11.2906 18.0719 10.9778C18.0811 10.9387 18.0895 10.7929 18.0034 10.7159C17.9172 10.6389 17.7901 10.6652 17.6983 10.6862C17.5683 10.7159 15.4968 12.0926 11.4839 14.8165C10.8959 15.2225 10.3633 15.4203 9.88616 15.41C9.36012 15.3985 8.34822 15.1109 7.59598 14.865C6.67333 14.5634 5.94002 14.404 6.00388 13.8918C6.03714 13.625 6.40248 13.3522 7.09992 13.0733Z" fill="white" fill-rule="evenodd"></path>
-                                    <rect class="hover-border" height="27" rx="7.5" stroke="red" width="27" x="0.5" y="0.5"></rect>
-                                </svg>
-                                Telegram
-                              </a> </div>
-					</div>
-				</div> <a href="{% url 'home' %}" class="text-white text-decoration-none">
-                        <img class="logo" src="{% static 'cinema/images/logo.svg' %}" alt="Multiplex">
-                    </a> </div>
-			<form class="d-flex col-lg-auto mb-2 mb-lg-0 me-12" role="search"> <input type="search" class="form-control form-control-dark text-bg-dark me-2" placeholder="Искать фильм..." aria-label="Search"> <button class="btn btn-outline-success" type="submit">Искать</button> </form>
-			<div class="d-flex align-items-center">
-				<div class="me-2" style="border-radius: 6px;"> <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            Выберите город <img class="smith ms-1" src="{% static 'cinema/images/arrow-down.svg' %}">
-                        </button> </div>
-				<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasRightLabel">Выберите город</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
-					<div class="offcanvas-body"> ... </div>
-				</div> <button type="button" class="btn btn-outline-light me-2">Войти</button> <button type="button" class="btn btn-warning">Регистрация</button> </div>
-		</div>
-	</div>
-</header>
-
-<body>
+{% block content %}
 	<div class="d-md-flex mw-100 my-md-3 ps-md-3 flex_flow align-items-center justify-content-center">
     {% for movie in movies %}
         <div class="d-md-flex text-bg-dark text-center my-sm-4 mx-sm-5 vh-80 align-items-end justify-content-center">
@@ -79,28 +8,18 @@
                 <!-- Добавлен стиль для изображения -->
                 <div class="image-container">
                     <img src="{{ movie.preview.url }}" alt="{{ movie.title }} Preview" class="img-fluid mb-3 blur-image">
-                    <!-- Добавлен блок с кнопкой "Подробнее о фильме" -->
                     <div class="overlay">
-                        <a href="#">
-                            <button type="button" class="btn btn-outline-light">
-                                <img src="{% static 'cinema/css/images/button_i.svg' %}">
-                                Подробнее о фильме
-                            </button>
+                        <a href="{{ movie.get_absolute_url }}">
+                            <div class="button-i" title="Подробнее о фильме"></div>
+                            <p class="about-movie-1">Подробнее</p>
+                            <p class="about-movie-2">о фильме</p>
                         </a>
+
                     </div>
                 </div>
-                <a href="#" class="display-5">{{ movie.title }}</a>
+                <a href="{{ movie.get_absolute_url }}" class="display-5">{{ movie.title }}</a>
             </div>
         </div>
     {% endfor %}
-</div>
-
-
-
-
-
-    <!-- bootstrap js -->
-    <script type="text/javascript" src="../../../static/cinema/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+    </div>
+     {% endblock %}
