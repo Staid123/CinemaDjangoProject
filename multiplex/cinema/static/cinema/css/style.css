@@ -299,5 +299,44 @@ a.display-5:hover {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
 }
 
+.max-container {
+    max-width: 1424px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 16px;
+}
+
+.movie_info_wrapper {
+    color: #393939;
+    display: block;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+}
+
+
+.breadcrumb-item a {
+    color: white;
+}
+
+.breadcrumb-item a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.column1 {
+    width: 250px;
+    min-width: 250px;
+    position: sticky;
+    top: 96px;
+    z-index: 2;
+    order: 1;
+    height: calc(100vh - 160px);
+}
+
 
 
