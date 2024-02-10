@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 from . import services
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Movie(models.Model):
@@ -30,6 +31,9 @@ class Movie(models.Model):
     def save(self, *args, **kwargs):
         self.slug = services.translit_to_eng(slugify(self.title, allow_unicode=True))
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'post_slug': self.slug})
 
     class Meta:
         verbose_name = "Фильм"
