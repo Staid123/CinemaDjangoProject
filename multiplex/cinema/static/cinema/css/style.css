@@ -184,36 +184,120 @@ a.display-5:hover {
     transition: filter 1s; /* Анимация при изменении свойства filter */
 }
 
-.overlay {
+.button-i {
+	 border: 3px solid red;
+	 border-radius: 40px;
+	 position: absolute;
+	 top: 10px;
+	 left: 10px;
+	 width: 50px;
+	 height: 50px;
+	 background: url("../images/square-info_10483557.svg") center center no-repeat;
+	 background-size: contain;
+	 cursor: pointer;
+	 opacity: 0;
+	 transition: opacity 0.3s ease-in-out;
+	 color: red;
+}
+
+ .button-i:hover {
+	 background-color: red;
+}
+
+ .image-container {
+	 position: relative;
+	 overflow: hidden;
+}
+
+ .image-container:hover .button-i {
+	 opacity: 1;
+}
+
+.image-container:hover .about-movie-1 {
+	 opacity: 1;
+}
+
+.image-container:hover .about-movie-2 {
+	 opacity: 1;
+}
+
+ .blur-image {
+	 width: 100%;
+	 height: auto;
+	 filter: blur(5px);
+}
+
+ .overlay {
 	 position: absolute;
 	 top: 0;
 	 left: 0;
 	 width: 100%;
 	 height: 100%;
-	 display: none;
-	 background-color: rgba(255, 255, 255, 0.1);
-	/* Изменено значение на прозрачное */
-	 justify-content: flex-start;
-	/* Изменено значение на flex-start */
-	 align-items: flex-start;
-	/* Изменено значение на flex-start */
-	 padding: 20px;
-	/* Добавлен отступ для кнопки */
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: flex-end;
+	 align-items: center;
 }
 
-.overlay button {
-	background: none;
-	border: none;
-	color: red;
-	cursor: pointer;
-	font-size: 16px;
+.about-movie-1 {
+	 opacity: 0;
+	 position: absolute;
+	 top: 11px;
+	 left: 65px;
+	 margin: 0;
+	 font-size: 1.3rem;
+	 color: white;
+	 font-weight: 600;
+	 transition: opacity 0.3s ease-in-out;
+}
+
+.about-movie-2 {
+	 opacity: 0;
+	 position: absolute;
+	 top: 30px;
+	 left: 65px;
+	 margin: 0;
+	 font-size: 1.3rem;
+	 color: white;
+	 font-weight: 600;
+	 transition: opacity 0.3s ease-in-out;
+}
+
+.blur-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+/* Добавьте следующий стиль для анимации блюра */
+.image-container img {
+    width: 46vh;
+    height: auto;
+    filter: blur(0); /* Начальное значение размытия */
+    transition: filter 1s; /* Анимация при изменении свойства filter */
 }
 
 .image-container:hover img {
-	filter: blur(7px);
-	/* Изменено значение размытия при наведении */
+    filter: blur(5px); /* Значение размытия при наведении */
 }
 
-.image-container:hover .overlay {
-	display: flex;
+/* Измените стили для затемнения сверху и снизу фотографии */
+.blur-image::before,
+.blur-image::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
 }
+
+.blur-image::after {
+    top: 50%;
+    transform: translateY(-100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+}
+
+
+
