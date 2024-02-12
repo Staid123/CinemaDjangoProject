@@ -22,6 +22,7 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cinema.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 if settings.DEBUG:
