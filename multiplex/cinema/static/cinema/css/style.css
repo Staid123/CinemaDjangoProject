@@ -148,7 +148,7 @@ div.offcanvas-body div a:hover {
 
 body {
     color: white;
-    background-color: #000007 !important;
+    background-color: #221f1f !important;
 }
 
 .vh-80 {
@@ -321,6 +321,8 @@ a.display-5:hover {
 
 .breadcrumb-item a {
     color: white;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .breadcrumb-item a:hover {
@@ -338,5 +340,247 @@ a.display-5:hover {
     height: calc(100vh - 160px);
 }
 
+.breadcrumb-item.active {
+  color: #696969;
+}
+
+.movie_info {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+}
+
+.column2 {
+    width: 100%;
+    padding: 0 40px;
+    order: 2;
+    position: relative;
+}
+
+.movie_credentials {
+    margin-bottom: 30px;
+}
 
 
+.movie_credentials li {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.movie_credentials li .key {
+    float: left;
+    width: 180px;
+    color: #fff;
+}
+
+.movie_credentials li .val {
+    display: inline-block;
+    position: relative;
+    width: calc(100% - 180px);
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 250ms;
+    float: left;
+    color: rgba(255,255,255,.4);
+}
+
+.movie_credentials li.rating .val {
+    display: inline-block;
+    position: relative;
+    width: calc(100% - 180px);
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 250ms;
+    float: left;
+    color: rgba(255,255,255,.8);
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+
+ul.movie_credentials {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+ul {
+    list-style: none;
+}
+
+.val-a {
+    color: white;
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,.35);
+    transition: 250ms;
+}
+
+.val-a:hover {
+    color: red !important;
+    border: none;
+}
+
+.movie_description {
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    margin-left: 2rem;
+}
+
+.column2 h1 {
+    font-size: 40px;
+    line-height: 46px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 16px;
+    margin-left: 30px;
+}
+
+.watchalso .heading {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    clear: both;
+    margin-top: 30px;
+    text-decoration: none;
+    transition: 250ms;
+    margin-left: 2rem;
+}
+
+.watchalso .heading:hover {
+    color: red;
+}
+
+.watchalso .films {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    margin-top: 20px;
+    margin-left: 2rem;
+}
+
+.films .film {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    transition: 250ms;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    width: 150px;
+}
+
+.film .pic {
+    height: 220px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    transition: 250ms;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.film .title span {
+    font-size: 14px;
+    line-height: 20px;
+    transition: 250ms;
+}
+
+.column2 .watchalso .films .film:hover .title span {
+    color: red
+}
+
+.column3 {
+    width: 350px;
+    min-width: 350px;
+    order: 3;
+    box-sizing: border-box;
+    position: sticky;
+    right: 0;
+    top: 96px;
+    height: calc(100vh - 180px);
+    background-color: #2f2b2b;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.column3 .fv2_date {
+    padding: 25px;
+    background-color: #3d3737;
+    border-radius: 8px 8px 0 0;
+}
+
+.column3 .fv2_date .heading {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.column3 .fv2_date .selector {
+    height: 32px;
+    border-radius: 6px;
+    background-color: #554f4f;
+    color: #fff;
+    padding: 0 35px 0 15px;
+    background-image: url(https://multiplex.ua/img/arrow-down-white.png);
+    background-position: right 13px top 50%;
+    background-size: 12px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: 250ms;
+}
+
+.column3 .fv2_date .selector:hover {
+    background-color: red;
+}
+
+.selector .left {
+    float: left;
+    font-size: 15px;
+    line-height: 32px;
+}
+
+.selector .right {
+    float: right;
+    font-size: 13px;
+    opacity: .5;
+    line-height: 32px;
+}
+
+.accordion-body {
+    background-color: #3d3737;
+    color: white;
+}
+
+.accordion {
+    --bs-accordion-bg: #554f4f;
+}
+
+.accordion-button {
+    color: white;
+    transition: 250ms;
+}
+
+.accordion-button:hover {
+    background-color: red;
+    border-color: none;
+}
