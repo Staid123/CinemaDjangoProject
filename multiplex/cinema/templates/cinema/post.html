@@ -1,22 +1,113 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+{% block title %}<title>{{ movie.title }}</title>{% endblock %}
 
 <div class="max-container">
-    <div class="movie_info_wrapper">
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Multiplex</a></li>
-                <li class="breadcrumb-item"><a href="#">Фильмы</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ movie.title }}</li>
-            </ol>
-        </nav>
-        <div class="movie-info flex-">
-            <div class="column1">
-                 <img class="poster" src="{{ movie.preview.url }}" title="{{ movie.title }}" alt="{{ movie.title }}"> <input type="hidden" id="mvi_poster" value="/images/ce/7c/ce7ca6d8681f578779323be85eb753a8.jpeg">
-            </div>
-        </div>
-    </div>
+	<div class="movie_info_wrapper">
+		<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{% url 'home' %}">Multiplex</a></li>
+				<li class="breadcrumb-item"><a href="#">Фильмы</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ movie.title }}</li>
+			</ol>
+		</nav>
+		<div class="movie-info d-md-flex">
+			<div class="column1"> <img class="poster" src="{{ movie.preview.url }}" title="{{ movie.title }}" alt="{{ movie.title }}"> <input type="hidden" id="mvi_poster" value="/images/ce/7c/ce7ca6d8681f578779323be85eb753a8.jpeg"> </div>
+			<div class="column2">
+				<h1>{{ movie.title }}</h1>
+				<ul class="movie_credentials">
+					<li class="rating">
+						<p class="key">Возраст:</p>
+						<p class="val">{{ movie.years }}</p>
+					</li>
+					<li>
+						<p class="key">Год:</p>
+						<p class="val">{{ movie.release_year }}</p>
+					</li>
+					<li>
+						<p class="key">Режисёр:</p>
+						<p class="val">{{ movie.producer }}</p>
+					</li>
+					<li>
+						<p class="key">Период проката:</p>
+						<p class="val">{{ movie.start_of_rental }}</p>
+					</li>
+					<li>
+						<p class="key">Язык:</p>
+						<p class="val">{{ movie.language }}</p>
+					</li>
+					<li>
+						<p class="key">Жанр:</p>
+						<p class="val">
+							{% for genre in movie.genre.all %}
+								<a href="#" class="val-a">{{genre.name}}</a>
+								{% if not forloop.last %}
+								,
+								{% endif %}
+							{% endfor %}</p>
+					</li>
+					<li>
+						<p class="key">Длительность:</p>
+						<p class="val">{{ movie.duration }}</p>
+					</li>
+					<li>
+						<p class="key">Производство:</p>
+						<p class="val">{{ movie.production }}</p>
+					</li>
+					<li>
+						<p class="key">В главных ролях:</p>
+						<p class="val">{{ movie.starring }}</p>
+					</li>
+				</ul>
+				<p>&nbsp;</p>
+				<div class="movie_description">
+					<p>{{ movie.description }}</p>
+				</div>
+				<div class="watchalso">
+					<a href="/" class="heading">Смотрите также:</a>
+					<div class="films">
+						{% for m in movies %}
+						<a class="film" href="{{ m.get_absolute_url }}">
+							<div class="pic" style="background-image: url('{{ m.preview.url }}')"></div>
+							<p class="title"><span>{{ m.title }}</span></p>
+						</a>
+						{% endfor %}
+					</div>
+					<a href="/soon" class="heading">Скоро в прокате:</a>
+					<div class="films">
+						{% for m in movies %}
+						<a class="film" href="{{ m.get_absolute_url }}">
+							<div class="pic" style="background-image: url('{{ m.preview.url }}')"></div>
+							<p class="title"><span>{{ m.title }}</span></p>
+						</a>
+						{% endfor %}
+				</div>
+			</div>
+		</div>
+			<div class="column3" title="Нажмите на время сеанса, чтобы выбрать места">
+				<div class="fv2_date">
+					<p class="heading">Расписание сеансов</p>
+					<div class="accordion" id="accordionPanelsStayOpenExample">
+						{% for date, times in sessions_by_date.items %}
+						<div class="accordion-item">
+							<h2 class="accordion-header"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+							{{ date }}
+						  	</button> </h2>
+							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+								<div class="accordion-body">
+									<ul>
+										{% for time in times %}
+											<li>{{ time }}</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
 {% endblock %}
