@@ -12,7 +12,7 @@ class Movie(models.Model):
     preview = models.ImageField(upload_to="preview")
     years = models.CharField(max_length=3, verbose_name="Возраст")
     description = models.TextField(max_length=1000, verbose_name="Краткое описание")
-    genre = models.ManyToManyField("Genre", verbose_name="Жанр", blank=True, related_name="genres")
+    genre = models.ManyToManyField("Genre", verbose_name="Жанр", related_name="genres")
     language = models.CharField(max_length=30, verbose_name="Язык")
     start_of_rental = models.DateField(verbose_name="Начало проката")
     end_of_rental = models.DateField(verbose_name="Конец проката")
@@ -22,8 +22,9 @@ class Movie(models.Model):
         MinValueValidator(30),
         MaxValueValidator(180)
     ])
-    starring = models.TextField(max_length=500,verbose_name="В главных ролях")
+    starring = models.TextField(max_length=500, verbose_name="В главных ролях")
     production = models.CharField(max_length=20, verbose_name="Производство")
+    session = models.ManyToManyField("Session", verbose_name="Информация о фильме", related_name="session")
 
     def __str__(self):
         return self.title
@@ -33,7 +34,7 @@ class Movie(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse('movie', kwargs={'movie_slug': self.slug})
 
     class Meta:
         verbose_name = "Фильм"
@@ -54,3 +55,16 @@ class Genre(models.Model):
     class Meta:
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
+
+
+class Session(models.Model):
+    date = models.DateField(verbose_name="Дата сеанса")
+    time = models.TimeField(verbose_name="Время сеанса")
+    hall_number = models.IntegerField(verbose_name="Номер зала")
+
+    class Meta:
+        verbose_name = "Сеанс"
+        verbose_name_plural = "Сеансы"
+
+    def __str__(self):
+        return f'{self.date} {self.time}, {self.hall_number} зал'
