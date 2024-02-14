@@ -1,5 +1,5 @@
 from django.db.models import QuerySet
-
+from datetime import date
 from . import models
 
 
@@ -13,18 +13,34 @@ def translit_to_eng(s: str) -> str:
     return "".join(map(lambda x: d[x] if x in d.keys() else x, s.lower()))
 
 
-def get_all_movies() -> QuerySet:
+def get_published_movies() -> QuerySet:
     """
-    Получение всех записей
+    Получение опубликованных записей
     :return: QuerySet
     """
-    return models.Movie.objects.all()
+    return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[1][0])
 
 
-def get_random_movies(exclude_movie):
+def get_archived_movies() -> QuerySet:
+    """
+    Получение записей с архива
+    :return: QuerySet
+    """
+    return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[2][0])
+
+
+def get_soon_movies() -> QuerySet:
+    """
+    Получение ожидаемых записей
+    :return: QuerySet
+    """
+    return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[0][0])
+
+
+def get_random_movies(exclude_movie) -> QuerySet:
     """
     Получаем три случайных фильма, исключая переданный movie,
     с сортировкой по времени создания в обратном порядке
     """
-    random_movies = models.Movie.objects.exclude(id=exclude_movie.id).order_by('?').order_by('start_of_rental')[:5]
+    random_movies = models.Movie.objects.exclude(id=exclude_movie.id).order_by('start_of_rental')[:5]
     return random_movies
