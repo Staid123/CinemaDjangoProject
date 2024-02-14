@@ -2,14 +2,14 @@ from django.shortcuts import render
 from . import services
 from django.shortcuts import get_object_or_404
 from .models import Movie
-
+from collections import defaultdict
 
 def home_view(request):
 
     """ Главная страница """
 
-    movies = services.get_all_movies()
-    return render(request, 'cinema/index.html', {'movies': movies})
+    pusblished_movies = services.get_published_movies()
+    return render(request, 'cinema/index.html', {'movies': pusblished_movies})
 
 
 def show_post(request, movie_slug):
@@ -23,12 +23,28 @@ def show_post(request, movie_slug):
 
     movies = services.get_random_movies(movie)
 
-    dates = list(set(movie.session.values_list('date', flat=True).order_by('date')))
-
+    dates = movie.session.order_by('date').values_list('date', flat=True).distinct()
     sessions_by_date = {}
 
     for date in dates:
-        time_list = list(movie.session.filter(date=date).values_list('time', flat=True))
-        sessions_by_date[date] = time_list
+        hall_and_times = {}
+        hall_num_list = list(movie.session.filter(date=date).values_list('hall', flat=True))
+        for hall in hall_num_list:
+            time_list = list(movie.session.filter(date=date, hall=hall).values_list('time', flat=True))
+            hall_and_times[hall] = time_list
+        sessions_by_date[date] = hall_and_times
 
-    return render(request, 'cinema/post.html', {'movie': movie, 'movies': movies, 'dates': sessions_by_date})
+    return render(request, 'cinema/post.html', {'movie': movie, 'movies': movies, 'sessions_by_date': sessions_by_date})
+
+
+def show_movies(request):
+
+    """Распределение фильмов на 'Сейчас в кино', 'Скоро в прокате', 'Архив'"""
+
+    published = services.get_published_movies()
+    soon = services.get_soon_movies()
+    archived = services.get_archived_movies()
+    movies = {'published': published, 'soon': soon, 'archived': archived}
+
+    return render(request, 'cinema/movies.html', {'movies': movies})
+
