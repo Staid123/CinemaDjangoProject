@@ -4,9 +4,16 @@ from django.core.exceptions import ValidationError
 from . import services
 from django.utils.text import slugify
 from django.urls import reverse
+from datetime import date
 
 
 class Movie(models.Model):
+    STATUS_CHOICES = [
+        ("Скоро в прокате", "Скоро в прокате"),
+        ("Опубликован", "Опубликован"),
+        ("Архив", "Архив"),
+    ]
+
     title = models.CharField(max_length=50, verbose_name="Название фильма")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, blank=True)
     preview = models.ImageField(upload_to="preview")
@@ -22,6 +29,12 @@ class Movie(models.Model):
         MinValueValidator(30),
         MaxValueValidator(180)
     ])
+    status = models.CharField(
+        verbose_name="Статус фильма",
+        choices=STATUS_CHOICES,
+        default="Скоро в прокате",
+        max_length=20,
+    )
     starring = models.TextField(max_length=500, verbose_name="В главных ролях")
     production = models.CharField(max_length=20, verbose_name="Производство")
     session = models.ManyToManyField("Session", verbose_name="Информация о фильме", related_name="session")
@@ -31,6 +44,14 @@ class Movie(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = services.translit_to_eng(slugify(self.title, allow_unicode=True))
+
+        if date.today() < self.start_of_rental:
+            self.status = self.STATUS_CHOICES[0][0]
+        elif self.start_of_rental <= date.today() <= self.end_of_rental:
+            self.status = self.STATUS_CHOICES[1][0]
+        else:
+            self.status = self.STATUS_CHOICES[2][0]
+
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -60,11 +81,27 @@ class Genre(models.Model):
 class Session(models.Model):
     date = models.DateField(verbose_name="Дата сеанса")
     time = models.TimeField(verbose_name="Время сеанса")
-    hall_number = models.IntegerField(verbose_name="Номер зала")
+    hall = models.ForeignKey('Hall', verbose_name="Номер зала", on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = "Сеанс"
         verbose_name_plural = "Сеансы"
 
     def __str__(self):
-        return f'{self.date} {self.time}, {self.hall_number} зал'
+        hall_number = self.hall.number if self.hall else "N/A"
+        return f'{self.date} {self.time}, Зал {hall_number}'
+
+
+class Hall(models.Model):
+    number = models.IntegerField(verbose_name="Номер зала")
+    places = models.IntegerField(verbose_name="Количество обычных мест")
+    vip_places = models.IntegerField(verbose_name="Количество премиум мест")
+    price_default_places = models.IntegerField(verbose_name="Стоимость обычных мест")
+    price_vip_places = models.IntegerField(verbose_name="Стоимость премиум мест")
+
+    class Meta:
+        verbose_name = "Зал"
+        verbose_name_plural = "Залы"
+
+    def __str__(self):
+        return f'Зал №{self.number}'
