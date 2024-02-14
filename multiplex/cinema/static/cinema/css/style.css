@@ -566,6 +566,7 @@ ul {
     line-height: 32px;
 }
 
+
 .accordion-body {
     background-color: #3d3737;
     color: white;
@@ -583,4 +584,16 @@ ul {
 .accordion-button:hover {
     background-color: red;
     border-color: none;
+}
+
+.time {
+    font-size: 16px;
+    font-weight: 550;
+    text-decoration: none;
+    color: white;
+    transition: 250ms;
+}
+
+.time:hover {
+    color: red;
 }
