@@ -2,7 +2,7 @@ from django.shortcuts import render
 from . import services
 from django.shortcuts import get_object_or_404
 from .models import Movie
-from collections import defaultdict
+
 
 def home_view(request):
 
@@ -37,14 +37,35 @@ def show_post(request, movie_slug):
     return render(request, 'cinema/post.html', {'movie': movie, 'movies': movies, 'sessions_by_date': sessions_by_date})
 
 
-def show_movies(request):
+def show_movies(request, status):
 
     """Распределение фильмов на 'Сейчас в кино', 'Скоро в прокате', 'Архив'"""
 
-    published = services.get_published_movies()
-    soon = services.get_soon_movies()
-    archived = services.get_archived_movies()
-    movies = {'published': published, 'soon': soon, 'archived': archived}
+    eng_status = {"soon": "Скоро в прокате", "now": "Опубликован", "archive": "Архив"}
 
-    return render(request, 'cinema/movies.html', {'movies': movies})
+    movies = services.get_movies_by_status(eng_status[status])
+
+    return render(request, 'cinema/movies.html', {'movies': movies, 'status': status})
+
+
+def soon_movies(request):
+    """Отображение фильмов категории 'скоро в прокате' по датам"""
+
+    movies = services.get_soon_movies()
+    date_and_movies = dict()
+
+    for movie in movies:
+        if movie.start_of_rental not in date_and_movies.keys():
+            date_and_movies[movie.start_of_rental] = [
+                {'movie': movie,
+                 'day_of_week': services.get_day_of_week(str(movie.start_of_rental))
+                 }]
+        else:
+            date_and_movies[movie.start_of_rental].append({
+                'movie': movie,
+                'day_of_week': services.get_day_of_week(str(movie.start_of_rental))
+            })
+
+    return render(request, 'cinema/soon.html', {'date_and_movies': date_and_movies})
+
 
