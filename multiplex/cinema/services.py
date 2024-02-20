@@ -1,6 +1,7 @@
 from django.db.models import QuerySet
-from datetime import date
+from datetime import date, datetime
 from . import models
+import calendar
 
 
 def translit_to_eng(s: str) -> str:
@@ -21,12 +22,12 @@ def get_published_movies() -> QuerySet:
     return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[1][0])
 
 
-def get_archived_movies() -> QuerySet:
+def get_movies_by_status(status) -> QuerySet:
     """
-    Получение записей с архива
+    Получение ожидаемых записей
     :return: QuerySet
     """
-    return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[2][0])
+    return models.Movie.objects.filter(status=status)
 
 
 def get_soon_movies() -> QuerySet:
@@ -34,7 +35,7 @@ def get_soon_movies() -> QuerySet:
     Получение ожидаемых записей
     :return: QuerySet
     """
-    return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[0][0])
+    return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[0][0]).order_by('start_of_rental')
 
 
 def get_random_movies(exclude_movie) -> QuerySet:
@@ -44,3 +45,19 @@ def get_random_movies(exclude_movie) -> QuerySet:
     """
     random_movies = models.Movie.objects.exclude(id=exclude_movie.id).order_by('start_of_rental')[:5]
     return random_movies
+
+
+def get_day_of_week(date_str):
+    ru_day_name = {
+        "Monday": "Понедельник",
+        "Tuesday": "Вторник",
+        "Wednesday": "Среда",
+        "Thursday": "Четверг",
+        "Friday": "Пятница",
+        "Saturday": "Суббота",
+        "Sunday": "Воскресенье"
+    }
+    date_object = datetime.strptime(date_str, '%Y-%m-%d')
+    day_of_week = date_object.weekday()
+    day_name = calendar.day_name[day_of_week]
+    return ru_day_name[day_name]
