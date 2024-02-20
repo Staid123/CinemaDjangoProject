@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Скоро в кино</title>{% endblock %}
+
+{% block content %}
+
+<div class="mob_fix_container">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); padding-left: 25px; padding-top: 10px; font-weight: 600;" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a style="font-size: 18px;" href="{% url 'home' %}">Multiplex</a></li>
+			<li style="font-size: 18px;" class="breadcrumb-item active" aria-current="page">Скоро в прокате</li>
+		</ol>
+	</nav>
+    <div class="soon_wrapper">
+        <h1 class="soon_top">Скоро в кино в Украине</h1>
+        <div class="may_not">Неподтвержденный график релиза
+            <div class="show_hint">
+                <div class="may_not_hint" style="display: none;">В этом разделе вы можете ознакомиться с фильмами, которые вероятно будут выходить в украинском прокате.
+                </div>
+            </div>
+        </div>
+        <div style="height: 52px;"></div>
+        <div class="soon_by_day">
+            {% for date, movies_list in date_and_movies.items %}
+            <div class="soon_el">
+                <div class="el_left clearfix">
+                    <p class="el_day_date">{{ date }}</p>
+					<p class="el_day_name">{{ movies_list.0.day_of_week }}</p>
+				</div>
+                <div class="el_right" style="height: 435px;">
+                    {% for movie_info in movies_list %}
+                    <a title="{{movie_info.movie.title}}" href="/movie/{{movie_info.movie.slug}}" class="soon_fm">
+                        <div class="soon_fm_poster_cnt">
+                            <div class="soon_fm_poster" style="background-image: url({{movie_info.movie.preview.url}})"></div>
+                            <div class="on_sale">Билеты в продаже</div>
+                        </div>
+                        <span class="soon_fm_name">{{ movie_info.movie.title }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
