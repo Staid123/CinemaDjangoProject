@@ -597,3 +597,229 @@ ul {
 .time:hover {
     color: red;
 }
+
+.soon_wrapper {
+    background-color: #221f1f;
+    box-sizing: border-box;
+    margin: 0 auto 0;
+    min-height: 100%;
+    margin-bottom: -70px;
+    color: #fff;
+}
+
+.mvi_nav {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding-top: 10px;
+    text-align: center;
+    background-color: #221f1f;
+    z-index: 3;
+}
+
+.mvi_nav li a.active {
+    background-color: red;
+    color: #fff;
+}
+
+.mvi_nav li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.soon_by_day {
+    position: static;
+}
+
+.soon_by_day .soon_el {
+    border-top: 1px solid rgba(34,31,31,.1);
+    margin-bottom: 8px;
+    position: relative;
+    height: 44vh;
+}
+
+.soon_by_day .el_right {
+    float: right;
+    background-color: #2a2727;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-radius: 6px;
+}
+
+.soon_by_day .el_right .soon_fm {
+    display: block;
+    width: 233px;
+    margin-right: 30px;
+    margin-bottom: 25px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.soon_by_day .el_right .soon_fm .soon_fm_poster_cnt {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.soon_by_day .el_right .soon_fm .soon_fm_poster {
+    width: 233px;
+    height: 344px;
+    border-radius: 6px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: filter 0.3s ease-in-out;
+
+}
+
+.soon_by_day .el_right .soon_fm .soon_fm_name {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #fff;
+    transition: 250ms;
+}
+
+.soon_by_day .el_right .soon_fm:hover .soon_fm_name {
+    color: red;
+}
+
+.soon_by_day .el_right .soon_fm:hover .soon_fm_poster {
+    filter: blur(2px);
+}
+
+.mob_fix_container {
+    height: 100vh;
+}
+
+.soon_wrapper {
+    padding: 0 30px 70px 30px;
+    background-color: #221f1f;
+    box-sizing: border-box;
+    margin: 0 auto 0;
+    min-height: 100%;
+    margin-bottom: -70px;
+    color: #fff;
+}
+
+.soon_top {
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    font-size: 24px;
+}
+
+.may_not {
+    text-align: center;
+    position: relative;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.may_not .show_hint {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+    background-image: url(https://multiplex.ua/img/question.svg);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.may_not .show_hint .may_not_hint {
+    display: none;
+    padding: 30px 20px;
+    position: absolute;
+    width: 300px;
+    top: 30px;
+    right: -35px;
+    background: #fff;
+    z-index: 20;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.75);
+    border-radius: 10px;
+    color: #000
+}
+
+.soon_by_day .el_left {
+    box-sizing: border-box;
+    float: left;
+    padding: 25px 10px;
+    width: 180px;
+}
+
+.clearfix {
+    position: static;
+}
+
+.soon_by_day .el_day_date {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.soon_by_day .el_day_name {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,.7);
+}
+
+
+.soon_by_day .el_right {
+    float: right;
+    background-color: #2a2727;
+    padding: 30px 0 0 30px;
+    width: calc(100% - 210px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-radius: 6px;
+}
+
+
+.soon_by_day .el_right .soon_fm {
+    display: block;
+    width: 233px;
+    margin-right: 30px;
+    margin-bottom: 25px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+
+.soon_by_day .el_right .soon_fm .on_sale {
+    display: block;
+    position: absolute;
+    width: 168px;
+    font-size: 16px;
+    line-height: 31px;
+    height: 31px;
+    font-weight: 400;
+    padding: 0 5px;
+    background-color: red;
+    color: #fff;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+}
