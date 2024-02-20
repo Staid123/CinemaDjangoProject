@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
-{% block content %}
 
+{% block content %}
+<div class="soon_wrapper" style="padding: 75px 0px 70px 0px">
+    <ul class="mvi_nav">
+        {% if status == 'soon' %}
+            <li><a href="/movies/now/">Сейчас в кино</a></li>
+            <li><a class="active" href="/movies/soon/">Скоро в прокате</a></li>
+            <li><a href="/movies/archive/">Архив</a></li>
+        {% elif status == 'archive' %}
+            <li><a href="/movies/now/">Сейчас в кино</a></li>
+            <li><a href="/movies/soon/">Скоро в прокате</a></li>
+            <li><a class="active" href="/movies/archive/">Архив</a></li>
+        {% else %}
+            <li><a class="active" href="/movies/now/">Сейчас в кино</a></li>
+            <li><a href="/movies/soon/">Скоро в прокате</a></li>
+            <li><a href=/movies/archive/>Архив</a></li>
+        {% endif %}
+    </ul>
+    <div class="soon_by_day">
+        <div class="soon_el">
+            <div class="el_right" style="width: 100%; padding: 30px; box-sizing: border-box">
+                {% for movie in movies %}
+                <a href="/movie/{{movie.slug}}" class="soon_fm">
+                    <div class="soon_fm_poster_cnt">
+                        <div class="soon_fm_poster" style="background-image: url({{movie.preview.url}});"></div>
+                        <span class="soon_fm_name">{{movie.title}}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
