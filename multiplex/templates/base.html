@@ -8,6 +8,7 @@
 	{% block title %}<title>Сейчас в кино</title>{% endblock %}
 	<link rel="stylesheet" href="{% static 'cinema/css/bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'cinema/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
 
 </head>
 
@@ -22,8 +23,8 @@
 					<div class="offcanvas-body">
 						<div class="list">
                             <a href="/movies/now/">Сейчас в кино</a>
-                            <a href="#">Скоро в прокате</a>
-                            <a href="#">Купить попкорн онлайн</a>
+                            <a href="/movies/soon/">Скоро в прокате</a>
+                            <a href="{% url 'products' %}">Купить попкорн онлайн</a>
                             <a href="#">Акции и скидки</a> <a href="#">Кинотеатры</a>
                             <a href="#">Возврат билетов</a> <a href="#">Помощь</a>
                             <a href="#">О компании</a>
@@ -38,7 +39,6 @@
                                 <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1419_7416)">
                                         <path d="M21.6667 10.338C21.5761 10.0148 21.3996 9.7222 21.156 9.4913C20.9055 9.25331 20.5985 9.08306 20.264 8.99664C19.012 8.66664 13.996 8.66664 13.996 8.66664C11.9049 8.64284 9.81427 8.74749 7.73598 8.97997C7.40144 9.07278 7.09503 9.24683 6.84398 9.48664C6.59732 9.72397 6.41865 10.0166 6.32532 10.3373C6.10111 11.5451 5.99218 12.7715 5.99998 14C5.99198 15.2273 6.10065 16.4533 6.32532 17.6626C6.41665 17.982 6.59465 18.2733 6.84198 18.5086C7.08932 18.744 7.39732 18.914 7.73598 19.004C9.00465 19.3333 13.996 19.3333 13.996 19.3333C16.0898 19.3571 18.183 19.2525 20.264 19.02C20.5985 18.9335 20.9055 18.7633 21.156 18.5253C21.3995 18.2945 21.5758 18.0018 21.666 17.6786C21.896 16.4713 22.0079 15.2444 22 14.0153C22.0173 12.781 21.9056 11.5483 21.6667 10.3373V10.338ZM12.4013 16.2826V11.718L16.5747 14.0006L12.4013 16.2826Z" fill="white"></path>
-
                                     </g>
                                     <rect class="hover-border" height="27" rx="7.5" stroke="red" width="27" x="0.5" y="0.5"></rect>
                                     <defs>
@@ -78,7 +78,14 @@
                             <h5 class="offcanvas-title" id="offcanvasRightLabel">Выберите город</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
                         <div class="offcanvas-body"> ... </div> </div>
                 </div>
-                <button type="button" class="btn btn-outline-light me-2">Войти</button> <button type="button" class="btn btn-warning">Регистрация</button> </div>
+                {% if user.is_authenticated %}
+                <a href="#"><button type="button" class="btn btn-outline-light me-2">{{user.username}}</button></a>
+                <a href="{% url 'users:logout' %}"><button type="button" class="btn btn-warning">Выйти</button></a>
+                {% else %}
+                <a href="{% url 'users:login' %}"><button type="button" class="btn btn-outline-light me-2">Войти</button></a>
+                <a href="{% url 'users:register' %}"><button type="button" class="btn btn-warning">Регистрация</button></a>
+                {% endif %}
+            </div>
 		</div>
 	</div>
 </header>
