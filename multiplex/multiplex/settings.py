@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     'cinema.apps.CinemaConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -135,4 +136,11 @@ MEDIA_URL = '/media/'
 
 INTERNAL_IPS = [
     '127.0.0.1',
+]
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
 ]
