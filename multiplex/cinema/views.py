@@ -69,3 +69,8 @@ def soon_movies(request):
     return render(request, 'cinema/soon.html', {'date_and_movies': date_and_movies})
 
 
+def show_products(request):
+    """Отображение товаров"""
+
+    products = services.get_products()
+    return render(request, 'cinema/products.html', {'products': products})
