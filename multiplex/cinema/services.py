@@ -48,6 +48,9 @@ def get_random_movies(exclude_movie) -> QuerySet:
 
 
 def get_day_of_week(date_str):
+    """
+    Перевод даты в день недели
+    """
     ru_day_name = {
         "Monday": "Понедельник",
         "Tuesday": "Вторник",
@@ -61,3 +64,8 @@ def get_day_of_week(date_str):
     day_of_week = date_object.weekday()
     day_name = calendar.day_name[day_of_week]
     return ru_day_name[day_name]
+
+
+def get_products():
+    """Получение всех продуктов"""
+    return models.Product.objects.all()
