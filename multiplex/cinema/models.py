@@ -16,7 +16,7 @@ class Movie(models.Model):
 
     title = models.CharField(max_length=50, verbose_name="Название фильма")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, blank=True)
-    preview = models.ImageField(upload_to="preview")
+    preview = models.ImageField(upload_to="preview", verbose_name="Фото")
     years = models.CharField(max_length=3, verbose_name="Возраст")
     description = models.TextField(max_length=1000, verbose_name="Краткое описание")
     genre = models.ManyToManyField("Genre", verbose_name="Жанр", related_name="genres")
@@ -105,3 +105,16 @@ class Hall(models.Model):
 
     def __str__(self):
         return f'Зал №{self.number}'
+
+
+class Product(models.Model):
+    name = models.CharField(verbose_name="Название продукта", max_length=255)
+    price = models.IntegerField(verbose_name="Цена продукта")
+    photo = models.ImageField(upload_to="product_photo", verbose_name="Фото")
+
+    class Meta:
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукты"
+
+    def __str__(self):
+        return f'Продукт {self.name}'
