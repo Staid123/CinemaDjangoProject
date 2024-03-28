@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.core.exceptions import ValidationError
 from . import services
 from django.utils.text import slugify
 from django.urls import reverse
@@ -37,7 +36,6 @@ class Movie(models.Model):
     )
     starring = models.TextField(max_length=500, verbose_name="В главных ролях")
     production = models.CharField(max_length=20, verbose_name="Производство")
-    session = models.ManyToManyField("Session", verbose_name="Информация о фильме", related_name="session")
 
     def __str__(self):
         return self.title
@@ -55,7 +53,7 @@ class Movie(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('movie', kwargs={'movie_slug': self.slug})
+        return reverse('cinema:movie', kwargs={'movie_slug': self.slug})
 
     class Meta:
         verbose_name = "Фильм"
@@ -79,9 +77,11 @@ class Genre(models.Model):
 
 
 class Session(models.Model):
+    movie = models.ForeignKey('Movie', verbose_name="Название фильма", on_delete=models.CASCADE, related_name="sessions")
     date = models.DateField(verbose_name="Дата сеанса")
     time = models.TimeField(verbose_name="Время сеанса")
-    hall = models.ForeignKey('Hall', verbose_name="Номер зала", on_delete=models.CASCADE, blank=True, null=True)
+    hall = models.ForeignKey('Hall', verbose_name="Номер зала", on_delete=models.CASCADE, blank=True, null=True, related_name='halls')
+    price = models.IntegerField(verbose_name="Стоимость обычных мест")
 
     class Meta:
         verbose_name = "Сеанс"
@@ -89,15 +89,12 @@ class Session(models.Model):
 
     def __str__(self):
         hall_number = self.hall.number if self.hall else "N/A"
-        return f'{self.date} {self.time}, Зал {hall_number}'
+        return f'{self.pk} {self.date} {self.time}, Зал {hall_number} Фильм {self.movie.title}'
 
 
 class Hall(models.Model):
     number = models.IntegerField(verbose_name="Номер зала")
     places = models.IntegerField(verbose_name="Количество обычных мест")
-    vip_places = models.IntegerField(verbose_name="Количество премиум мест")
-    price_default_places = models.IntegerField(verbose_name="Стоимость обычных мест")
-    price_vip_places = models.IntegerField(verbose_name="Стоимость премиум мест")
 
     class Meta:
         verbose_name = "Зал"
@@ -105,6 +102,12 @@ class Hall(models.Model):
 
     def __str__(self):
         return f'Зал №{self.number}'
+
+
+class Ticket(models.Model):
+    session = models.ForeignKey('Session', verbose_name="Сессия", on_delete=models.CASCADE, blank=True, null=True, related_name='tickets')
+    row = models.IntegerField(verbose_name="Ряд")
+    place = models.IntegerField(verbose_name="Место")
 
 
 class Product(models.Model):

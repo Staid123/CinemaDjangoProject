@@ -1,7 +1,8 @@
 from django.shortcuts import render
+
 from . import services
 from django.shortcuts import get_object_or_404
-from .models import Movie
+from .models import Movie, Session
 
 
 def home_view(request):
@@ -23,18 +24,15 @@ def show_post(request, movie_slug):
 
     movies = services.get_random_movies(movie)
 
-    dates = movie.session.order_by('date').values_list('date', flat=True).distinct()
+    sessions = Session.objects.filter(movie=movie).order_by('date', 'time')
     sessions_by_date = {}
 
-    for date in dates:
-        hall_and_times = {}
-        hall_num_list = list(movie.session.filter(date=date).values_list('hall', flat=True))
-        for hall in hall_num_list:
-            time_list = list(movie.session.filter(date=date, hall=hall).values_list('time', flat=True))
-            hall_and_times[hall] = time_list
-        sessions_by_date[date] = hall_and_times
+    for session in sessions:
+        if session.date not in sessions_by_date.keys():
+            sessions_by_date[session.date] = []
+        sessions_by_date[session.date].append({session.id: session.time})
 
-    return render(request, 'cinema/post.html', {'movie': movie, 'movies': movies, 'sessions_by_date': sessions_by_date})
+    return render(request, 'cinema/post.html', {'movie': movie, 'movies': movies, 'sessions': sessions_by_date})
 
 
 def show_movies(request, status):
@@ -74,3 +72,24 @@ def show_products(request):
 
     products = services.get_products()
     return render(request, 'cinema/products.html', {'products': products})
+
+
+def select_place(request, session_id):
+    session = Session.objects.get(id=session_id)
+    rows = [int(num) for num in range(1, int(session.hall.places / 10) + 1)]
+    count_places_in_every_row = [num for num in range(1, 10)]
+    row_info = {}
+    for row_num in rows:
+        reserved_seats = session.tickets.filter(session=session, row=row_num).values_list('place', flat=True)
+        row_info[row_num] = [{
+            'count_places': count_places_in_every_row,
+            'reserved_seats': list(reserved_seats)
+        }]
+    # {row_num: [{'count_places': [1, 2, 3, 4, 5, 6, 7, 8, 9], 'reserved_seats': [place_num, place_num]}]
+    print(row_info)
+    return render(request, 'cinema/select_place.html', {
+        'session': session,
+        'row_info': row_info
+    })
+
+

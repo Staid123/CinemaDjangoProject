@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'cinema.apps.CinemaConfig',
     'users.apps.UsersConfig',
     'social_django',
+    'cart.apps.CartConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -183,3 +185,4 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
+CART_SESSION_ID = 'cart'
