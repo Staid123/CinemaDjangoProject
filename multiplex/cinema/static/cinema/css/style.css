@@ -827,3 +827,54 @@ ul {
 .container {
     width: 100%;
 }
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product {
+  flex-basis: 20%; /* або інший відсоток для контролю кількості товарів у рядку */
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.price-and-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.price {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.cart-form {
+  width: 100%;
+}
+
+.form-elements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity {
+  flex-grow: 1;
+}
+
+.add-to-cart {
+  flex-basis: calc(50% - 10px);
+  margin-left: 10px;
+}

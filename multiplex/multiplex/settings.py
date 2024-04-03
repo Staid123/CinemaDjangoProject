@@ -186,3 +186,4 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 CART_SESSION_ID = 'cart'
+PRODUCT_CART_SESSION_ID = 'product_cart'

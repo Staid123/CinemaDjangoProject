@@ -2,105 +2,64 @@
 
 
 {% block content %}
-  <h1>Your Tickets</h1>
-  <table class="cart">
-    <thead>
-      <tr>
-        <th>Film</th>
-        <th>Remove</th>
-        <th>Hall</th>
-        <th>Row</th>
-        <th>Place</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for item in cart %}
-          {% with ticket=item.ticket %}
-        <tr style="background-color: #efefef;">
-            <td>
-              <a href="{{ ticket.session.movie.get_absolute_url }}" style="color: black;">
-                <img src="{{ ticket.session.movie.preview.url }}">
-              </a>
-            </td>
-            <td>
-              <form action="{% url 'cart:cart_remove' ticket.id %}" method="post">
-                <input type="submit" value="Remove">
-                {% csrf_token %}
-              </form>
-            <td style="color: black;">
-              {{ticket.session.hall.number}}
-            </td>
-            <td style="color: black;">
-              {{item.row}}
-            </td>
-            <td style="color: black;">
-              {{item.place}}
-            </td>
-            <td class="num" style="color: black; padding-right: 15%;">{{ ticket.session.price }}грн.</td>
-          </tr>
-        <tr class="total">
-            <td></td>
-            <td colspan="6"></td>
-          </tr>
-        {% if forloop.last %}
-          </tbody>
-          </table>
-            <p class="text-right">
-              <a href="{% url 'cinema:select_place' ticket.session.id %}" class="button light">Заказать еще билеты</a>
-            </p>
-        {% endif %}
-    {% endwith %}
-  {% endfor %}
-
-    <h1>Your Products</h1>
-    <table class="cart">
+      <h1>Ваши билеты</h1>
+      <table class="cart">
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Quantity</th>
+            <th>Film</th>
             <th>Remove</th>
-            <th>Unit price</th>
+            <th>Hall</th>
+            <th>Row</th>
+            <th>Place</th>
             <th>Price</th>
           </tr>
         </thead>
         <tbody>
-          {% for item in cart %}
-            {% with product=item.product %}
-              <tr>
-                <td>
-                  <a href="{{ product.get_absolute_url }}">
-                    <img src="{{ product.image.url }}">
-                  </a>
-                </td>
-                <td>{{ product.name }}</td>
-                <td>
-                  <form action="{% url 'cart:cart_add' product.id %}" method="post">
-                    {{ item.update_quantity_form.quantity }}
-                    {{ item.update_quantity_form.override }}
-                    <input type="submit" value="Update">
-                    {% csrf_token %}
-                  </form>
-                </td>
-                <td>
-                  <form action="{% url "cart:cart_remove" product.id %}" method="post">
-                    <input type="submit" value="Remove">
-                    {% csrf_token %}
-                  </form>
-                </td>
-                <td class="num">${{ item.price }}</td>
-                <td class="num">${{ item.total_price }}</td>
-              </tr>
-            {% endwith %}
-          {% endfor %}
-          <tr class="total">
-            <td>Total</td>
-            <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="text-right">
-        <a href="{% url 'shop:product_list' %}" class="button light">Перейти к продуктам</a>
+            {% for item in cart %}
+              {% with ticket=item.ticket %}
+                <tr style="background-color: #efefef;">
+                    <td>
+                      <a href="{{ ticket.session.movie.get_absolute_url }}" style="color: black;">
+                        <img src="{{ ticket.session.movie.preview.url }}">
+                      </a>
+                    </td>
+                    <td>
+                      <form action="{% url 'cart:cart_remove' ticket.id %}" method="post">
+                        <input type="submit" value="Remove">
+                        {% csrf_token %}
+                      </form>
+                    </td>
+                    <td style="color: black;">
+                      {{ticket.session.hall.number}}
+                    </td>
+                    <td style="color: black;">
+                      {{item.row}}
+                    </td>
+                    <td style="color: black;">
+                      {{item.place}}
+                    </td>
+                    <td class="num" style="color: black; padding-right: 15%;">{{ ticket.session.price }}грн.</td>
+                  </tr>
+                {% if forloop.last %}
+                    <tr class="total">
+                        <td>Total</td>
+                        <td colspan="4"></td>
+                        <td class="num">{{ cart.get_total_price }}грн.</td>
+                    </tr>
+                {% endif %}
+              {% endwith %}
+            {% endfor %}
+            </tbody>
+              </table>
+    {% if cart %}
+        <p class="text-right">
+          <a href="{% url 'cinema:select_place' session_id %}" class="button light">Заказать еще билеты</a>
+          <a href="{% url 'cinema:products' %}" class="button">Перейти к товарам</a>
+        </p>
+    {% else %}
+        <p class="text-right">
+          <a href="{% url 'cinema:select_place' session_id %}" class="button light">Заказать еще билеты</a>
+          <a href="{% url 'cinema:home' %}" class="button">В главное меню</a>
+        </p>
+    {% endif %}
 {% endblock %}

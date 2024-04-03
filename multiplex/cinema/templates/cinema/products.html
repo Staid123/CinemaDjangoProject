@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-{% for product in products %}
-  <img src="{{product.photo.url}}">
-{% endfor %}
+<div class="products-container">
+  {% for product in products %}
+  <div class="product">
+    <img src="{{ product.photo.url }}" style="width: 200px; height: 200px;">
+    <div class="price-and-cart">
+      <p class="price">{{ product.price }}грн.</p>
+      <form action="{% url 'cart:product_cart_add' product.id %}" method="post">
+         {{ cart_product_form }}
+         {% csrf_token %}
+         <input type="submit" value="Добавить в корзину">
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
