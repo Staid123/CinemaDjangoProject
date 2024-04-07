@@ -34,10 +34,39 @@ def product_cart_add(request):
 
 
 def product_cart_change(request):
-    ...
+    cart_id = request.POST.get("cart_id")
+    quantity = request.POST.get("quantity")
+
+    cart = ProductCart.objects.get(id=cart_id)
+
+    cart.quantity = quantity
+    cart.save()
+
+    cart = get_user_carts(request)
+    cart_items_html = render_to_string(
+        "carts/includes/included_cart.html", {"carts": cart}, request=request)
+
+    response_data = {
+        "cart_items_html": cart_items_html,
+    }
+
+    return JsonResponse(response_data)
 
 
-def product_cart_remove(request, product_cart_id):
-    cart = ProductCart.objects.get(id=product_cart_id)
+
+def product_cart_remove(request):
+    cart_id = request.POST.get('cart_id')
+    cart = ProductCart.objects.get(id=cart_id)
+    quantity = cart.quantity
     cart.delete()
-    return redirect(request.META['HTTP_REFERER'])
+    
+    user_cart = get_user_carts(request)
+    cart_items_html = render_to_string(
+        "carts/includes/included_cart.html", {"product_carts": user_cart}, request=request)
+
+    response_data = {
+        "cart_items_html": cart_items_html,
+        'quantity_deleted': quantity,
+    }
+
+    return JsonResponse(response_data)

@@ -9,18 +9,13 @@
         {% for product in products %}
           <div class="product">
             <img src="{{ product.photo.url }}" style="width: 200px; height: 200px;">
-            <div class="price-and-cart" style="display: block; margin-left: 45%;">
-                <a href="{% url 'cart:product_cart_add' %}" class="add-to-cart" style="width: 30px; height: 31px;"
+            <div class="price-and-cart" style="display: block; margin-left: 15%;">
+                <a href="{% url 'cart:product_cart_add' %}" class="add-to-cart"
                 data-product-id="{{ product.id }}">
                     {% csrf_token %}
-                    <button style="border: none; border-radius: 20px; width: 31px; height: 35px;">+</button>
+                    <button style="border: none; border-radius: 20px; width: 80%; height: 35px;">Добавить в корзину</button>
                 </a>
-                <input type="text" class="form-control number" value="1" style="width: 25%; display: inline;"
-                            readonly>
-                <a href="#" style="width: 30px; height: 31px;">
-                    <button style="border: none; border-radius: 20px; width: 30px; height: 31px;">-</button>
-                </a>
-                <p class="price" style="padding-right: 38%;">{{ product.price }}грн.</p>
+                <p class="price" style="padding-right: 15%;">{{ product.price }}грн.</p>
             </div>
           </div>
         {% endfor %}
