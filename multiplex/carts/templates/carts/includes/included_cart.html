@@ -1,0 +1,52 @@
+{% load static %}
+{% load carts_tags %}
+
+{% user_product_carts request as product_carts %}
+
+<div class="card mb-3 text-bg-light shadow-lg" style="width: 30%; float: right;">
+    <h1>Ваши товары</h1>
+    {% for cart in product_carts %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row text-center">
+                    <div class="col p-0">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-dark btn-sm decrement"
+                                    data-cart-id="" data-cart-change-url="">-</button>
+                            </span>
+                            <input type="text" class="form-control number" value="{{ cart.quantity }}"
+                                readonly>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-dark btn-sm increment"
+                                    data-cart-id="" data-cart-change-url="">+</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col p-0">
+                        <p>x {{ cart.product.sell_price }} = </p>
+                    </div>
+                    <div class="col p-0"><strong> {{cart.products_price}} $</strong></div>
+                    <div class="col p-0">
+                        <a href="{% url 'cart:product_cart_remove' %}" class="remove-from-cart" data-cart-id="">
+                            <img class="mx-1" src="{% static 'images/icons/basket_delete.png' %}"
+                                alt="Catalog Icon" width="16" height="16">
+                        </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="card-header" style="width: 100%; float: left;">
+            <h5 class="card-title">{{ cart.product.name }}</h5>
+            <img src="{{cart.product.photo.url}}" style="width: 30%;">
+        </div>
+    {% endfor %}
+    <div class="card-footer">
+        <p class="float-left" id="products-in-cart-count">Итого <strong>{{ product_carts.total_quantity }}</strong> товар(а) на сумму</p>
+        <h4 class="float-left"><strong>{{ product_carts.total_price }} $</strong></h4>
+    </div>
+    {% if product_carts %}
+        <a class="btn btn-dark" href="#">Оформить заказ</a>
+    {% endif %}
+</div>
+

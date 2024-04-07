@@ -6,8 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	{% block title %}<title>Сейчас в кино</title>{% endblock %}
-	<link rel="stylesheet" href="{% static 'cinema/css/bootstrap.css' %}">
-	<link rel="stylesheet" href="{% static 'cinema/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'cart/css/style.css' %}">
 
@@ -17,10 +17,10 @@
 	<div class="container-fluid">
 		<div class="d-flex align-items-center justify-content-between">
 			<div> <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                        <img class="menu" src="{% static 'cinema/images/menu.svg' %}" alt="Multiplex">
+                        <img class="menu" src="{% static 'images/menu.svg' %}" alt="Multiplex">
                     </button>
 				<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-					<div class="offcanvas-header"> <img class="off-canvas-logo" src="{% static 'cinema/images/logo.svg' %}" alt="Multiplex"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
+					<div class="offcanvas-header"> <img class="off-canvas-logo" src="{% static 'images/logo.svg' %}" alt="Multiplex"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
 					<div class="offcanvas-body">
 						<div class="list">
                             <a href="/movies/now/">Сейчас в кино</a>
@@ -66,13 +66,13 @@
 					</div>
 				</div>
                 <a href="{% url 'cinema:home' %}" class="text-white text-decoration-none">
-                    <img class="logo" src="{% static 'cinema/images/logo.svg' %}" alt="Multiplex">
+                    <img class="logo" src="{% static 'images/logo.svg' %}" alt="Multiplex">
                 </a>
             </div>
 			<form class="d-flex col-lg-auto mb-2 mb-lg-0 me-12" role="search"> <input type="search" class="form-control form-control-dark text-bg-dark me-2" placeholder="Искать фильм..." aria-label="Search"> <button class="btn btn-outline-success" type="submit">Искать</button> </form>
 			<div class="d-flex align-items-center">
 				<div class="me-2" style="border-radius: 6px;"> <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            Выберите город <img class="smith ms-1" src="{% static 'cinema/images/arrow-down.svg' %}">
+                            Выберите город <img class="smith ms-1" src="{% static 'images/arrow-down.svg' %}">
                         </button>
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                         <div class="offcanvas-header">
@@ -96,7 +96,9 @@
 
 
     <!-- bootstrap js -->
-    <script type="text/javascript" src="../../../static/cinema/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ajax.js' %}"></script>
 </body>
 
 </html>

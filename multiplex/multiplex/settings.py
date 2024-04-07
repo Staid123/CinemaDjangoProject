@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
 
-    'cinema.apps.CinemaConfig',
-    'users.apps.UsersConfig',
+    'cinema',
+    'users',
     'social_django',
-    'cart.apps.CartConfig',
+    'carts',
 
 ]
 
@@ -133,6 +133,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -145,8 +149,8 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'cinema:home'
+LOGOUT_REDIRECT_URL = 'cinema:home'
 
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2',
@@ -187,3 +191,5 @@ SOCIAL_AUTH_PIPELINE = (
 
 CART_SESSION_ID = 'cart'
 PRODUCT_CART_SESSION_ID = 'product_cart'
+
+AUTH_USER_MODEL = 'users.User'

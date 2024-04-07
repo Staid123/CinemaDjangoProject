@@ -11,7 +11,7 @@ class LoginUser(LoginView):
     template_name = 'users/login.html'
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('cinema:home')
 
 
 class RegisterUser(CreateView):

@@ -1,0 +1,900 @@
+/* Стили для текста в поле поиска */
+form input::placeholder {
+    color: white !important;
+}
+
+img.logo {
+    position: relative;
+    height: 60px;
+    left: 50px;
+}
+
+header.p-3 {
+    padding: 7px !important;
+}
+
+img.menu {
+    position: relative;
+    height: 50px;
+    width: auto;
+    right: 100px;
+}
+
+.btn-primary {
+    --bs-btn-active-bg: none;
+}
+
+/* Добавленный стиль для кнопки "Искать" */
+form button.btn-outline-success {
+    color: red !important;           /* Цвет текста */
+    border-color: red !important;    /* Цвет обводки */
+}
+
+/* Стиль для кнопки "Искать" при наведении на текст */
+form button.btn-outline-success:hover {
+    color: white !important;
+    background-color: red !important;
+
+}
+
+button.btn.btn-primary {
+    position: absolute;
+    background: none;
+    border: none;
+    left: 100px;
+}
+
+div.offcanvas-header {
+    background-color: RGBA(var(--bs-dark-rgb), var(--bs-bg-opacity, 1));
+    color: white;
+    height: 175px;
+}
+
+.me-12 {
+    margin-left: 12rem;
+}
+
+
+.btn-close {
+    position: absolute;
+    background-color: white;
+    top: 25px;
+    border-radius: 16px;
+    width: 10px;
+    height: 10px;
+}
+
+.btn-close:hover {
+    background-color: red;
+    border-radius: 16px;
+}
+
+img.off-canvas-logo {
+    position: relative;
+    top: 10px;
+    left: 67px;
+    width: 240px;
+    height: auto;
+}
+
+div.offcanvas-body {
+    background-color: RGBA(var(--bs-dark-rgb), var(--bs-bg-opacity, 1));
+}
+
+div.list a {
+    display: flex;
+    align-items: center;
+    flex-direction: column !important;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    line-height: 50px;
+}
+
+div.offcanvas-body div a:hover {
+   color: red;
+}
+
+.menu-block-heading {
+    display: flex;
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 10px;
+    margin-top: 20px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu-block-heading button {
+    background-color: red;
+    font-weight: 700;
+    border-color: red;
+    transition: opacity 0.3s easeIn;
+}
+
+.menu-block-heading button:hover {
+    color: white;
+    background-color: red;
+    opacity: 0.8;
+    border-color: red;
+}
+
+.menu_soc_item {
+    color: white;
+    margin-top: 10px;
+    text-decoration: none;
+    font-size: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.offcanvas.offcanvas-start {
+    transform: translateX(-100%);
+    transition: transform 0.21s ease;
+}
+
+.offcanvas.offcanvas-end {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.smith {
+    height: 20px;
+    width: 20px;
+}
+
+body {
+    color: white;
+    background-color: #221f1f !important;
+}
+
+.vh-80 {
+    width: 80vh;
+    height: 80vh !important;
+}
+
+.flex_flow {
+    flex-flow: row wrap;
+}
+
+a.display-5 {
+    display: block;
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a.display-5:hover {
+    color: red;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 46vh;
+    height: auto;
+    filter: blur(0); /* Начальное значение размытия */
+    transition: filter 1s; /* Анимация при изменении свойства filter */
+}
+
+.button-i {
+	 border: 3px solid red;
+	 border-radius: 40px;
+	 position: absolute;
+	 top: 10px;
+	 left: 10px;
+	 width: 50px;
+	 height: 50px;
+	 background: url("../images/square-info_10483557.svg") center center no-repeat;
+	 background-size: contain;
+	 cursor: pointer;
+	 opacity: 0;
+	 transition: opacity 0.3s ease-in-out;
+	 color: red;
+}
+
+ .button-i:hover {
+	 background-color: red;
+}
+
+ .image-container {
+	 position: relative;
+	 overflow: hidden;
+}
+
+ .image-container:hover .button-i {
+	 opacity: 1;
+}
+
+.image-container:hover .about-movie-1 {
+	 opacity: 1;
+}
+
+.image-container:hover .about-movie-2 {
+	 opacity: 1;
+}
+
+ .blur-image {
+	 width: 100%;
+	 height: auto;
+	 filter: blur(5px);
+}
+
+ .overlay {
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: flex-end;
+	 align-items: center;
+}
+
+.about-movie-1 {
+	 opacity: 0;
+	 position: absolute;
+	 top: 11px;
+	 left: 65px;
+	 margin: 0;
+	 font-size: 1.3rem;
+	 color: white;
+	 font-weight: 600;
+	 transition: opacity 0.3s ease-in-out;
+}
+
+.about-movie-2 {
+	 opacity: 0;
+	 position: absolute;
+	 top: 30px;
+	 left: 65px;
+	 margin: 0;
+	 font-size: 1.3rem;
+	 color: white;
+	 font-weight: 600;
+	 transition: opacity 0.3s ease-in-out;
+}
+
+.blur-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+/* Добавьте следующий стиль для анимации блюра */
+.image-container img {
+    width: 46vh;
+    height: auto;
+    filter: blur(0); /* Начальное значение размытия */
+    transition: filter 1s; /* Анимация при изменении свойства filter */
+}
+
+.image-container:hover img {
+    filter: blur(5px); /* Значение размытия при наведении */
+}
+
+/* Измените стили для затемнения сверху и снизу фотографии */
+.blur-image::before,
+.blur-image::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+}
+
+.blur-image::after {
+    top: 50%;
+    transform: translateY(-100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+}
+
+.max-container {
+    max-width: 1424px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 16px;
+}
+
+.movie_info_wrapper {
+    color: #393939;
+    display: block;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+}
+
+
+.breadcrumb-item a {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.breadcrumb-item a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.column1 {
+    width: 250px;
+    min-width: 250px;
+    position: sticky;
+    top: 96px;
+    z-index: 2;
+    order: 1;
+    height: calc(100vh - 160px);
+}
+
+.breadcrumb-item.active {
+  color: #696969;
+}
+
+.movie_info {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+}
+
+.column2 {
+    width: 100%;
+    padding: 0 40px;
+    order: 2;
+    position: relative;
+}
+
+.movie_credentials {
+    margin-bottom: 30px;
+}
+
+
+.movie_credentials li {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.movie_credentials li .key {
+    float: left;
+    width: 180px;
+    color: #fff;
+}
+
+.movie_credentials li .val {
+    display: inline-block;
+    position: relative;
+    width: calc(100% - 180px);
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 250ms;
+    float: left;
+    color: rgba(255,255,255,.4);
+}
+
+.movie_credentials li.rating .val {
+    display: inline-block;
+    position: relative;
+    width: calc(100% - 180px);
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 250ms;
+    float: left;
+    color: rgba(255,255,255,.8);
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+
+ul.movie_credentials {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+ul {
+    list-style: none;
+}
+
+.val-a {
+    color: white;
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,.35);
+    transition: 250ms;
+}
+
+.val-a:hover {
+    color: red !important;
+    border: none;
+}
+
+.movie_description {
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    margin-left: 2rem;
+}
+
+.column2 h1 {
+    font-size: 40px;
+    line-height: 46px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 16px;
+    margin-left: 30px;
+}
+
+.watchalso .heading {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    clear: both;
+    margin-top: 30px;
+    text-decoration: none;
+    transition: 250ms;
+    margin-left: 2rem;
+}
+
+.watchalso .heading:hover {
+    color: red;
+}
+
+.watchalso .films {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    margin-top: 20px;
+    margin-left: 2rem;
+}
+
+.films .film {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    transition: 250ms;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    width: 150px;
+}
+
+.film .pic {
+    height: 220px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    transition: 250ms;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.film .title span {
+    font-size: 14px;
+    line-height: 20px;
+    transition: 250ms;
+}
+
+.column2 .watchalso .films .film:hover .title span {
+    color: red
+}
+
+.column3 {
+    width: 350px;
+    min-width: 350px;
+    order: 3;
+    box-sizing: border-box;
+    position: sticky;
+    right: 0;
+    top: 96px;
+    height: calc(100vh - 180px);
+    background-color: #2f2b2b;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.column3 .fv2_date {
+    padding: 25px;
+    background-color: #3d3737;
+    border-radius: 8px 8px 0 0;
+}
+
+.column3 .fv2_date .heading {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.column3 .fv2_date .selector {
+    height: 32px;
+    border-radius: 6px;
+    background-color: #554f4f;
+    color: #fff;
+    padding: 0 35px 0 15px;
+    background-image: url(https://multiplex.ua/img/arrow-down-white.png);
+    background-position: right 13px top 50%;
+    background-size: 12px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: 250ms;
+}
+
+.column3 .fv2_date .selector:hover {
+    background-color: red;
+}
+
+.selector .left {
+    float: left;
+    font-size: 15px;
+    line-height: 32px;
+}
+
+.selector .right {
+    float: right;
+    font-size: 13px;
+    opacity: .5;
+    line-height: 32px;
+}
+
+
+.accordion-body {
+    background-color: #3d3737;
+    color: white;
+}
+
+.accordion {
+    --bs-accordion-bg: #554f4f;
+}
+
+.accordion-button {
+    color: white;
+    transition: 250ms;
+}
+
+.accordion-button:hover {
+    background-color: red;
+    border-color: none;
+}
+
+.time {
+    font-size: 16px;
+    font-weight: 550;
+    text-decoration: none;
+    color: white;
+    transition: 250ms;
+}
+
+.time:hover {
+    color: red;
+}
+
+.soon_wrapper {
+    background-color: #221f1f;
+    box-sizing: border-box;
+    margin: 0 auto 0;
+    min-height: 100%;
+    margin-bottom: -70px;
+    color: #fff;
+}
+
+.mvi_nav {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding-top: 10px;
+    text-align: center;
+    background-color: #221f1f;
+    z-index: 3;
+}
+
+.mvi_nav li a.active {
+    background-color: red;
+    color: #fff;
+}
+
+.mvi_nav li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.soon_by_day {
+    position: static;
+}
+
+.soon_by_day .soon_el {
+    border-top: 1px solid rgba(34,31,31,.1);
+    margin-bottom: 8px;
+    position: relative;
+    height: 44vh;
+}
+
+.soon_by_day .el_right {
+    float: right;
+    background-color: #2a2727;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-radius: 6px;
+}
+
+.soon_by_day .el_right .soon_fm {
+    display: block;
+    width: 233px;
+    margin-right: 30px;
+    margin-bottom: 25px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.soon_by_day .el_right .soon_fm .soon_fm_poster_cnt {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.soon_by_day .el_right .soon_fm .soon_fm_poster {
+    width: 233px;
+    height: 344px;
+    border-radius: 6px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: filter 0.3s ease-in-out;
+
+}
+
+.soon_by_day .el_right .soon_fm .soon_fm_name {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #fff;
+    transition: 250ms;
+}
+
+.soon_by_day .el_right .soon_fm:hover .soon_fm_name {
+    color: red;
+}
+
+.soon_by_day .el_right .soon_fm:hover .soon_fm_poster {
+    filter: blur(2px);
+}
+
+.mob_fix_container {
+    height: 100vh;
+}
+
+.soon_wrapper {
+    padding: 0 30px 70px 30px;
+    background-color: #221f1f;
+    box-sizing: border-box;
+    margin: 0 auto 0;
+    min-height: 100%;
+    margin-bottom: -70px;
+    color: #fff;
+}
+
+.soon_top {
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    font-size: 24px;
+}
+
+.may_not {
+    text-align: center;
+    position: relative;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.may_not .show_hint {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+    background-image: url(https://multiplex.ua/img/question.svg);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.may_not .show_hint .may_not_hint {
+    display: none;
+    padding: 30px 20px;
+    position: absolute;
+    width: 300px;
+    top: 30px;
+    right: -35px;
+    background: #fff;
+    z-index: 20;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.75);
+    border-radius: 10px;
+    color: #000
+}
+
+.soon_by_day .el_left {
+    box-sizing: border-box;
+    float: left;
+    padding: 25px 10px;
+    width: 180px;
+}
+
+.clearfix {
+    position: static;
+}
+
+.soon_by_day .el_day_date {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.soon_by_day .el_day_name {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,.7);
+}
+
+
+.soon_by_day .el_right {
+    float: right;
+    background-color: #2a2727;
+    padding: 30px 0 0 30px;
+    width: calc(100% - 210px);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-radius: 6px;
+}
+
+
+.soon_by_day .el_right .soon_fm {
+    display: block;
+    width: 233px;
+    margin-right: 30px;
+    margin-bottom: 25px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+
+.soon_by_day .el_right .soon_fm .on_sale {
+    display: block;
+    position: absolute;
+    width: 168px;
+    font-size: 16px;
+    line-height: 31px;
+    height: 31px;
+    font-weight: 400;
+    padding: 0 5px;
+    background-color: red;
+    color: #fff;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+}
+
+.container {
+    width: 100%;
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product {
+  flex-basis: 20%; /* або інший відсоток для контролю кількості товарів у рядку */
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.price-and-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.price {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.cart-form {
+  width: 100%;
+}
+
+.form-elements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity {
+  flex-grow: 1;
+}
+
+.add-to-cart {
+  flex-basis: calc(50% - 10px);
+  margin-left: 10px;
+}
+
+.product-container {
+    float: right;
+    width: 30%;
+    padding: 8px 24px;
+    background-color: white;
+    color: black;
+    height: 100%;
+    padding-top: 1%;
+}
+
+.product-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+}

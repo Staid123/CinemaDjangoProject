@@ -3,9 +3,9 @@ from django.shortcuts import render
 from . import services
 from django.shortcuts import get_object_or_404
 from .models import Movie, Session
-from cart.forms import CartAddProductForm
+# from cart.forms import CartAddProductForm
 
-from cart.cart import Cart, ProductCart
+# from cart.cart import Cart, ProductCart
 
 
 def home_view(request):
@@ -74,8 +74,8 @@ def show_products(request):
     """Отображение товаров"""
 
     products = services.get_products()
-    cart_product_form = CartAddProductForm()
-    return render(request, 'cinema/products.html', {'products': products, 'cart_product_form': cart_product_form})
+    # cart_product_form = CartAddProductForm()
+    return render(request, 'cinema/products.html', {'products': products}) #'cart_product_form': cart_product_form})
 
 
 def select_place(request, session_id):

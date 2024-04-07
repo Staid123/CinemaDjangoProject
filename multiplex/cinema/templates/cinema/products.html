@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="products-container">
-  {% for product in products %}
-  <div class="product">
-    <img src="{{ product.photo.url }}" style="width: 200px; height: 200px;">
-    <div class="price-and-cart">
-      <p class="price">{{ product.price }}грн.</p>
-      <form action="{% url 'cart:product_cart_add' product.id %}" method="post">
-         {{ cart_product_form }}
-         {% csrf_token %}
-         <input type="submit" value="Добавить в корзину">
-      </form>
+    <div id="cart-items-container">
+        {% include "carts/includes/included_cart.html" %}
     </div>
-  </div>
-  {% endfor %}
-</div>
+     <div class="products-container" style="width: 70%; float:left;">
+        {% for product in products %}
+          <div class="product">
+            <img src="{{ product.photo.url }}" style="width: 200px; height: 200px;">
+            <div class="price-and-cart" style="display: block; margin-left: 45%;">
+                <a href="{% url 'cart:product_cart_add' %}" class="add-to-cart" style="width: 30px; height: 31px;"
+                data-product-id="{{ product.id }}">
+                    {% csrf_token %}
+                    <button style="border: none; border-radius: 20px; width: 31px; height: 35px;">+</button>
+                </a>
+                <input type="text" class="form-control number" value="1" style="width: 25%; display: inline;"
+                            readonly>
+                <a href="#" style="width: 30px; height: 31px;">
+                    <button style="border: none; border-radius: 20px; width: 30px; height: 31px;">-</button>
+                </a>
+                <p class="price" style="padding-right: 38%;">{{ product.price }}грн.</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
 {% endblock %}

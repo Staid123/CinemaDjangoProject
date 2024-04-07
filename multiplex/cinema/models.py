@@ -56,6 +56,7 @@ class Movie(models.Model):
         return reverse('cinema:movie', kwargs={'movie_slug': self.slug})
 
     class Meta:
+        db_table = 'Films'
         verbose_name = "Фильм"
         verbose_name_plural = "Фильмы"
 
@@ -72,6 +73,7 @@ class Genre(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
+        db_table = 'Genres'
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
 
@@ -84,6 +86,7 @@ class Session(models.Model):
     price = models.IntegerField(verbose_name="Стоимость обычных мест")
 
     class Meta:
+        db_table = 'sessions'
         verbose_name = "Сеанс"
         verbose_name_plural = "Сеансы"
 
@@ -97,6 +100,7 @@ class Hall(models.Model):
     places = models.IntegerField(verbose_name="Количество обычных мест")
 
     class Meta:
+        db_table = 'halls'
         verbose_name = "Зал"
         verbose_name_plural = "Залы"
 
@@ -109,15 +113,32 @@ class Ticket(models.Model):
     row = models.IntegerField(verbose_name="Ряд")
     place = models.IntegerField(verbose_name="Место")
 
+    class Meta:
+        db_table = 'tickets'
+        verbose_name = 'Билет'
+        verbose_name_plural = 'Билеты'
+
+    def __str__(self):
+        return f'Билет {self.pk} | Зал {self.session.hall.number} | Ряд {self.row} Место {self.place} | Товары: {self.products}'
+
 
 class Product(models.Model):
     name = models.CharField(verbose_name="Название продукта", max_length=255)
-    price = models.IntegerField(verbose_name="Цена продукта")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, blank=True)
+    price = models.DecimalField(default=0.00, max_digits=7, decimal_places=2, verbose_name='Цена')
     photo = models.ImageField(upload_to="product_photo", verbose_name="Фото")
+    discount = models.DecimalField(default=0.00, max_digits=4, decimal_places=2, verbose_name='Скидка в %')
 
     class Meta:
+        db_table = 'product'
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
+        ordering = ("id",)
 
     def __str__(self):
-        return f'Продукт {self.name}'
+        return f'{self.name}'
+
+    def sell_price(self):
+        if self.discount:
+            return round(self.price - self.price * self.discount / 100, 2)
+        return self.price
