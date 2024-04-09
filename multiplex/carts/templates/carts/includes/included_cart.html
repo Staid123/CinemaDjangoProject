@@ -12,7 +12,7 @@
                     <div class="col p-0">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-dark btn-sm decrement"
+                                <button type="button" class="btn btn-danger btn-sm decrement"
                                     data-cart-id="{{cart.id}}" 
                                     data-cart-change-url="{% url 'cart:product_cart_change' %}">
                                     {% csrf_token %}
@@ -21,7 +21,7 @@
                             <input type="text" class="form-control number" value="{{ cart.quantity }}"
                                 readonly>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-dark btn-sm increment"
+                                <button type="button" class="btn btn-danger btn-sm increment"
                                     data-cart-id="{{cart.id}}" 
                                     data-cart-change-url="{% url 'cart:product_cart_change' %}">
                                     {% csrf_token %}
@@ -54,7 +54,7 @@
         <h4 class="float-left"><strong>{{ product_carts.total_price }} грн.</strong></h4>
     </div>
     {% if product_carts %}
-        <a class="btn btn-dark" href="#">Оформить заказ</a>
+        <a class="btn btn-success" href="#">Оформить заказ</a>
     {% endif %}
 </div>
 

@@ -2,7 +2,22 @@
 {% load static %}
 
 {% block content %}
-<div style="position: absolute; top: 30%; left: 38%;">
+<div id="cart-items-container">
+  {% include "carts/includes/ticket_included_cart.html" %}
+  {% include "carts/includes/included_cart.html" %}
+  <button class="btn btn-danger">Продолжить</button>
+</div>
+<div>
+  <img class="ms-3 mt-3 float-start" src="{{session.movie.preview.url}}"
+  <h1 class="float-start"><span style="font-size: 20px; font-weight: bold;">{{session.movie.title}}</span></h1>
+</div>
+<div style="position: absolute; width:36.465rem; top: 45%; left: 25%;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 806 21" fill="white">
+      <path d="M3.2,20l-2,0.2l-0.3-4l2-0.2C136.2,5.3,269.6,0,403,0s266.8,5.3,400.2,16l2,0.2l-0.3,4l-2-0.2 C669.5,9.3,536.3,4,403,4S136.4,9.3,3.2,20z"></path>
+  </svg>
+  <div style="position: absolute; left: 42%;"><span style="font-size: 20px;"><strong>ЕКРАН</strong></span></div>
+</div>
+<div style="position: absolute; left: 28%; bottom: 15%;">
   {% for row, lst in row_info.items %}
     {% for dct in lst %}
       {% for place in dct.count_places %}
@@ -10,7 +25,7 @@
           <button style="width: 40px; height: 55px; background-color: blue; border-radius: 4px; margin: 3px;"></button>
         {% else %}
           <a href="#">
-          <!-- <a href="{% url 'cart:cart_add' session.id row place %}"> -->
+          
             <button style="width: 40px; height: 55px; border-radius: 4px; margin: 3px;"></button>
           </a>
         {% endif %}
