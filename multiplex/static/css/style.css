@@ -1,6 +1,11 @@
 /* Стили для текста в поле поиска */
+html {
+    width:100vw;
+    overflow-x:hidden;
+}
+
 form input::placeholder {
-    color: white !important;
+    color: rgb(148, 146, 146) !important;
 }
 
 img.logo {
@@ -147,7 +152,6 @@ div.offcanvas-body div a:hover {
 }
 
 body {
-    color: white;
     background-color: #221f1f !important;
 }
 

@@ -15,7 +15,7 @@
                     {% csrf_token %}
                     <button class="btn btn-success" style="border: none; border-radius: 20px; width: 80%; height: 35px;">Добавить в корзину</button>
                 </a>
-                <p class="price" style="padding-right: 15%;">{{ product.price }}грн.</p>
+                <p class="price" style="padding-right: 15%; color: white;">{{ product.sell_price }}грн.</p>
             </div>
           </div>
         {% endfor %}

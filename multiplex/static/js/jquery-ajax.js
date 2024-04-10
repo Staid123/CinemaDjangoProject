@@ -1,5 +1,7 @@
 // Когда html документ готов (прорисован)
 $(document).ready(function () {
+    // берем в переменную элемент разметки с id jq-notification для оповещений от ajax
+    var successMessage = $("#jq-notification");
 
     // Ловим собыитие клика по кнопке добавить в корзину
     $(document).on("click", ".add-to-cart", function (e) {
@@ -25,6 +27,13 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
             },
             success: function (data) {
+                // Сообщение
+                successMessage.html(data.message);
+                successMessage.fadeIn(400);
+                // Через 7сек убираем сообщение
+                setTimeout(function () {
+                    successMessage.fadeOut(400);
+                }, 7000);
             
                 // Увеличиваем количество товаров в корзине (отрисовка в шаблоне)
                 cartCount++;
@@ -41,7 +50,7 @@ $(document).ready(function () {
             },
         });
     });
-})
+
 
 
 
@@ -154,3 +163,13 @@ $(document).ready(function () {
             },
         });
     }
+
+     // Берем из разметки элемент по id - оповещения от django
+     var notification = $('#notification');
+     // И через 7 сек. убираем
+    if (notification.length > 0) {
+        setTimeout(function () {
+            notification.alert('close');
+        }, 7000);
+    }
+});

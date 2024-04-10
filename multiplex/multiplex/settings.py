@@ -153,11 +153,10 @@ LOGIN_REDIRECT_URL = 'cinema:home'
 LOGOUT_REDIRECT_URL = 'cinema:home'
 
 AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.github.GithubOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-    'users.authentication.EmailAuthBackend',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -189,7 +188,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
-CART_SESSION_ID = 'cart'
-PRODUCT_CART_SESSION_ID = 'product_cart'
 
 AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = "/users/login"
+
+
+MY_SUPER_ERROR = 80
+MESSAGE_LEVEL = MY_SUPER_ERROR

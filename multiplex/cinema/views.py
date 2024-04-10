@@ -74,8 +74,7 @@ def show_products(request):
     """Отображение товаров"""
 
     products = services.get_products()
-    # cart_product_form = CartAddProductForm()
-    return render(request, 'cinema/products.html', {'products': products}) #'cart_product_form': cart_product_form})
+    return render(request, 'cinema/products.html', {'products': products})
 
 
 def select_place(request, session_id):
