@@ -1,3 +1,5 @@
 .idea/
 media/
 venv/
+.pylintrc
+.vscode/

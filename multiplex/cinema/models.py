@@ -1,7 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from . import services
-from django.utils.text import slugify
 from django.urls import reverse
 from datetime import date
 
@@ -41,8 +39,6 @@ class Movie(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = services.translit_to_eng(slugify(self.title, allow_unicode=True))
-
         if date.today() < self.start_of_rental:
             self.status = self.STATUS_CHOICES[0][0]
         elif self.start_of_rental <= date.today() <= self.end_of_rental:
@@ -67,10 +63,6 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        self.slug = services.translit_to_eng(slugify(self.name, allow_unicode=True))
-        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'Genres'
@@ -119,7 +111,7 @@ class Ticket(models.Model):
         verbose_name_plural = 'Билеты'
 
     def __str__(self):
-        return f'Билет {self.pk} | Зал {self.session.hall.number} | Ряд {self.row} Место {self.place} | Товары: {self.products}'
+        return f'Билет {self.pk} | Зал {self.session.hall.number} | Ряд {self.row} Место {self.place}'
 
 
 class Product(models.Model):
