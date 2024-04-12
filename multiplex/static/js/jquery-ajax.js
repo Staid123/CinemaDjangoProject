@@ -164,12 +164,113 @@ $(document).ready(function () {
         });
     }
 
-     // Берем из разметки элемент по id - оповещения от django
-     var notification = $('#notification');
-     // И через 7 сек. убираем
+    // ------------------------------------------------- Оповещения --------------------------------------------------------------
+
+    // Берем из разметки элемент по id - оповещения от django
+    var notification = $('#notification');
+    // И через 7 сек. убираем
     if (notification.length > 0) {
         setTimeout(function () {
             notification.alert('close');
         }, 7000);
     }
+
+    // ---------------------------------------------------- КОРЗИНА С БИЛЕТАМИ ----------------------------------------------------
+    // Ловим собыитие клика по кнопке удалить товар из корзины
+    $(document).on("click", ".remove-from-ticket-cart", function (e) {
+        // Блокируем его базовое действие
+        e.preventDefault();
+
+        // Берем элемент счетчика в значке корзины и берем оттуда значение
+        var ticketsInCartCount = $("#tickets-in-cart-count");
+        var cartCount = parseInt(ticketsInCartCount.text() || 0);
+
+        // Получаем id корзины из атрибута data-cart-id
+        var cart_id = $(this).data("cart-id");
+        // Из атрибута href берем ссылку на контроллер django
+        var remove_from_cart = $(this).attr("href");
+
+        // делаем post запрос через ajax не перезагружая страницу
+        $.ajax({
+
+            type: "POST",
+            url: remove_from_cart,
+            data: {
+                cart_id: cart_id,
+                csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
+            },
+            success: function (data) {
+
+                // Уменьшаем количество товаров в корзине (отрисовка)
+                cartCount -= 1;
+                ticketsInCartCount.text(cartCount);
+
+                // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
+                var cartItemsContainer = $("#cart-items-container");
+                cartItemsContainer.html(data.cart_items_html);
+
+            },
+
+            error: function (data) {
+                console.log("Ошибка при добавлении товара в корзину");
+            },
+        });
+    });
+
+
+    // Ловим собыитие клика по кнопке добавить в корзину
+    $(document).on("click", ".add-to-ticket-cart", function (e) {
+        // Блокируем его базовое действие
+        e.preventDefault();
+
+        // Берем элемент счетчика в значке корзины и берем оттуда значение
+        var ticketsInCartCount = $("#tickets-in-cart-count");
+        var cartCount = parseInt(ticketsInCartCount.text() || 0);
+
+        // Получаем id сеанса из атрибута data-cart-id
+        var session_id = $(this).data("session-id");
+        // Получаем ряд из атрибута data-row
+        var row = $(this).data("row");
+        // Получаем место выбранное пользователем из атрибута data-place
+        var place = $(this).data("place");
+
+        // Из атрибута href берем ссылку на контроллер django
+        var add_to_cart_url = $(this).attr("href");
+
+        // делаем post запрос через ajax не перезагружая страницу
+        $.ajax({
+            type: "POST",
+            url: add_to_cart_url,
+            data: {
+                session_id: session_id,
+                row: row,
+                place: place,
+                csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
+            },
+            success: function (data) {
+                // Сообщение
+                successMessage.html(data.message);
+                successMessage.fadeIn(400);
+                // Через 7сек убираем сообщение
+                setTimeout(function () {
+                    successMessage.fadeOut(400);
+                }, 7000);
+            
+                // Увеличиваем количество товаров в корзине (отрисовка в шаблоне)
+                cartCount++;
+                ticketsInCartCount.text(cartCount);
+
+                // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
+                var cartItemsContainer = $("#cart-items-container");
+                cartItemsContainer.html(data.cart_items_html);
+                // Меняем содержимое мест в зале
+                var placesContainer = $("#places-container");
+                placesContainer.html(data.places_html);
+            },
+
+            error: function (data) {
+                console.log("Ошибка при добавлении товара в корзину");
+            },
+        });
+    });
 });

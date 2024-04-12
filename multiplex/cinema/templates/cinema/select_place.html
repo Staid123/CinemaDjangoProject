@@ -1,37 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cinema_places_tags %}
 
 {% block content %}
 <div id="cart-items-container">
   {% include "carts/includes/ticket_included_cart.html" %}
-  {% include "carts/includes/included_cart.html" %}
-  <button class="btn btn-danger">Продолжить</button>
 </div>
 <div>
   <img class="ms-3 mt-3 float-start" src="{{session.movie.preview.url}}"
-  <h1 class="float-start"><span style="font-size: 20px; font-weight: bold;">{{session.movie.title}}</span></h1>
+  <h1><span style="font-size: 22px; font-weight: bold; color: white; padding-left: 9px;">{{session.movie.title}}</span></h1>
+  <p><span style="font-size: 16px; font-weight: bold; color: white; padding-left: 9px;">{{session.date}} {{session.time}}</span></p>
+  <p><span style="font-size: 16px; font-weight: bold; color: white; padding-left: 9px;">{{session.hall.number}} зал</span></p>
 </div>
 <div style="position: absolute; width:36.465rem; top: 45%; left: 25%;">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 806 21" fill="white">
       <path d="M3.2,20l-2,0.2l-0.3-4l2-0.2C136.2,5.3,269.6,0,403,0s266.8,5.3,400.2,16l2,0.2l-0.3,4l-2-0.2 C669.5,9.3,536.3,4,403,4S136.4,9.3,3.2,20z"></path>
   </svg>
-  <div style="position: absolute; left: 42%;"><span style="font-size: 20px;"><strong>ЕКРАН</strong></span></div>
+  <div style="position: absolute; left: 42%;"><span style="font-size: 20px; color: white;"><strong>ЕКРАН</strong></span></div>
 </div>
-<div style="position: absolute; left: 28%; bottom: 15%;">
-  {% for row, lst in row_info.items %}
-    {% for dct in lst %}
-      {% for place in dct.count_places %}
-        {% if place in dct.reserved_seats %}
-          <button style="width: 40px; height: 55px; background-color: blue; border-radius: 4px; margin: 3px;"></button>
-        {% else %}
-          <a href="#">
-          
-            <button style="width: 40px; height: 55px; border-radius: 4px; margin: 3px;"></button>
-          </a>
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-    <br>
-  {% endfor %}
+<div id="places-container">
+  {% show_places session.id %}
 </div>
 {% endblock %}

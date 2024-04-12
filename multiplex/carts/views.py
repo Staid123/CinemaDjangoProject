@@ -1,11 +1,11 @@
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
-
-from cinema.models import Product
-from carts.models import ProductCart
 from django.template.loader import render_to_string
+from django.http import JsonResponse
+from cinema.models import Product, Ticket, Session
+from cinema.utils import get_places
+from carts.models import ProductCart, TicketCart
+from carts.utils import get_user_carts, get_user_ticket_carts
 
-from carts.utils import get_user_carts
+
 
 
 def product_cart_add(request):
@@ -33,7 +33,6 @@ def product_cart_add(request):
         else:
             ProductCart.objects.create(
                 session_key=request.session.session_key, product=product, quantity=1)
-            
     user_cart = get_user_carts(request)
     cart_items_html = render_to_string(
         "carts/includes/included_cart.html", {"product_carts": user_cart}, request=request)
@@ -80,6 +79,37 @@ def product_cart_remove(request):
     response_data = {
         "cart_items_html": cart_items_html,
         'quantity_deleted': quantity,
+    }
+
+    return JsonResponse(response_data)
+
+
+
+def ticket_cart_add(request):
+    session_id = request.POST.get('session_id')
+    row = request.POST.get('row')
+    place = request.POST.get('place')
+    session = Session.objects.get(id=session_id)
+    ticket = Ticket.objects.create(session=session, row=row, place=place)
+
+    if request.user.is_authenticated:
+        TicketCart.objects.create(user=request.user, ticket=ticket)
+    else:
+        TicketCart.objects.create(session_key=request.session.session_key, ticket=ticket)
+            
+    ticket_carts = get_user_ticket_carts(request)
+    cart_items_html = render_to_string(
+        "carts/includes/ticket_included_cart.html", {"ticket_carts": ticket_carts}, request=request)
+    
+    row_info = get_places(session_id) 
+    places_html = render_to_string(
+        "cinema/includes/places.html", {'row_info': row_info, "session_id": session_id}, request=request
+    )
+
+    response_data = {
+        "message": "Билет добавлен в корзину",
+        "cart_items_html": cart_items_html,
+        "places_html": places_html
     }
 
     return JsonResponse(response_data)

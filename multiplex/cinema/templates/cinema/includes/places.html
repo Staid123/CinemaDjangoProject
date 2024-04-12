@@ -1,0 +1,20 @@
+<div style="position: absolute; left: 28%; bottom: 15%;">
+    {% for row, lst in row_info.items %}
+        {% for dct in lst %}
+            {% for place in dct.count_places %}
+                {% if place in dct.reserved_seats %}
+                    <button style="width: 40px; height: 55px; background-color: blue; border-radius: 4px; margin: 3px;"></button>
+                {% else %}
+                 <a href={% url 'carts:ticket_cart_add' %} class="add-to-ticket-cart" 
+                data-session-id="{{ session_id }}"
+                data-row="{{ row }}"
+                data-place="{{ place }}">
+                    {% csrf_token %}
+                    <button style="width: 40px; height: 55px; border-radius: 4px; margin: 3px;"></button>
+                </a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        <br>
+    {% endfor %}
+</div>

@@ -1,8 +1,10 @@
 from django.contrib import admin
 
-from .models import ProductCart
+from .models import ProductCart, TicketCart
 
 # admin.site.register(ProductCart)
+admin.site.register(TicketCart)
+
 class ProductCartTabAdmin(admin.TabularInline):
     model = ProductCart
     fields = "product", "quantity", "created_timestamp"
