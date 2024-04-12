@@ -5,7 +5,7 @@
 
 
 <div class="card mb-3 text-bg-light shadow-lg" style="width: 30%; float: right;">
-    <h1>Ваши билеты</h1>
+    <h1>Ваши билеты</h1>    
     <div class="card-header" style="width: 100%; float: left;">
         <h5 class="card-title">{{ ticket_carts.movie.title }}</h5>
         <img src="{{ticket_carts.movie.preview.url}}" style="width: 30%;">
@@ -18,7 +18,7 @@
                         <p>{{ cart.ticket.row }} ряд {{ cart.ticket.place }} место <strong>{{ cart.ticket.session.price }} грн.</strong></p>
                     </div>
                     <div class="col p-0">
-                        <a href="{% url 'cart:product_cart_remove' %}" class="remove-from-ticket-cart" 
+                        <a href="{% url 'carts:ticket_cart_remove' %}" class="remove-from-ticket-cart" 
                         data-cart-id="{{ cart.id }}">
                             {% csrf_token %}
                             <img class="mx-1" src="{% static 'images/icons/basket_delete.png' %}"
@@ -34,7 +34,7 @@
         <h4 class="float-left"><strong>{% if ticket_carts %}{{ ticket_carts.total_price }}{% else %}0{% endif %} грн.</strong></h4>
     </div>
     {% if ticket_carts %}
-        <a class="btn btn-warning" href="#">Продолжить</a>
+        <a class="btn btn-danger" href="{% url 'cinema:products' %}">Продолжить</a>
     {% endif %}
 </div>
 

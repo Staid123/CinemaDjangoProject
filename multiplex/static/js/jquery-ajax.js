@@ -185,16 +185,17 @@ $(document).ready(function () {
         var ticketsInCartCount = $("#tickets-in-cart-count");
         var cartCount = parseInt(ticketsInCartCount.text() || 0);
 
-        // Получаем id корзины из атрибута data-cart-id
+        // Получаем id сеанса из атрибута data-cart-id
         var cart_id = $(this).data("cart-id");
+
         // Из атрибута href берем ссылку на контроллер django
-        var remove_from_cart = $(this).attr("href");
+        var remove_from_cart_url = $(this).attr("href");
 
         // делаем post запрос через ajax не перезагружая страницу
         $.ajax({
 
             type: "POST",
-            url: remove_from_cart,
+            url: remove_from_cart_url,
             data: {
                 cart_id: cart_id,
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
@@ -208,6 +209,9 @@ $(document).ready(function () {
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
                 var cartItemsContainer = $("#cart-items-container");
                 cartItemsContainer.html(data.cart_items_html);
+                // Меняем содержимое мест в зале
+                var placesContainer = $("#places-container");
+                placesContainer.html(data.places_html);
 
             },
 

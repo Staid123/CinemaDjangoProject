@@ -113,3 +113,28 @@ def ticket_cart_add(request):
     }
 
     return JsonResponse(response_data)
+
+
+def ticket_cart_remove(request):
+    cart_id = request.POST.get('cart_id')
+    cart = TicketCart.objects.get(id=cart_id)
+    session_id = cart.ticket.session.id
+    cart.ticket.delete()
+    cart.delete()
+
+    ticket_carts = get_user_ticket_carts(request)
+    cart_items_html = render_to_string(
+        "carts/includes/ticket_included_cart.html", {"ticket_carts": ticket_carts}, request=request)
+   
+    row_info = get_places(session_id)
+    places_html = render_to_string(
+        "cinema/includes/places.html", {'row_info': row_info, "session_id": session_id}, request=request
+    )
+
+    response_data = {
+        "message": "Билет удален с корзины",
+        "cart_items_html": cart_items_html,
+        "places_html": places_html
+    }
+
+    return JsonResponse(response_data)
