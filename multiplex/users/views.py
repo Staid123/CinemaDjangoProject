@@ -4,7 +4,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.contrib import auth, messages
-from carts.models import ProductCart
+from carts.models import ProductCart, TicketCart
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm
 
 
@@ -25,6 +25,7 @@ def login(request):
 
                 if session_key:
                     ProductCart.objects.filter(session_key=session_key).update(user=user)
+                    TicketCart.objects.filter(session_key=session_key).update(user=user)
 
                 redirect_page = request.POST.get('next', None)
                 if redirect_page and redirect_page != reverse('users:logout'):
@@ -49,6 +50,7 @@ def registration(request):
 
             if session_key:
                 ProductCart.objects.filter(session_key=session_key).update(user=user)
+                TicketCart.objects.filter(session_key=session_key).update(user=user)
             return redirect('cinema:home')
     else:
         form = RegisterUserForm()

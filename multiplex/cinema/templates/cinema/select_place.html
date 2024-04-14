@@ -2,16 +2,55 @@
 {% load static %}
 {% load cinema_places_tags %}
 
+
+{% block header %}
+<header class="p-3 text-bg-light">
+	<div class="container-fluid">
+		<div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'cinema:home' %}">
+          <img class="logo" src="{% static 'images/logo.svg' %}" alt="Multiplex">
+        </a>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); margin-right: 68%; margin-top: 1%;" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><span style="cursor: not-allowed; color: black; font-weight: 600;">Места</span></li>
+            <li class="breadcrumb-item"><a href="{% url 'cinema:products' %}" style="color: black;">Товары бара</a></li>
+            <li class="breadcrumb-item" aria-current="page"><span style="cursor: not-allowed; color: black;">Оплата</span></li>
+          </ol>
+        </nav>
+        <div class="d-flex align-items-center">
+          {% if user.is_authenticated %}
+            <a href="{% url 'users:profile' %}"><button type="button" class="btn btn-dark me-2">{{user.username}}</button></a>
+            <a href="{% url 'users:logout' %}"><button type="button" class="btn btn-warning">Выйти</button></a>
+          {% else %}
+            <a href="{% url 'users:login' %}"><button type="button" class="btn btn-outline-light me-2">Войти</button></a>
+            <a href="{% url 'users:register' %}"><button type="button" class="btn btn-warning">Регистрация</button></a>
+          {% endif %}
+        </div>
+		</div>
+	</div>
+</header>
+{% endblock %}
+
+
 {% block content %}
-<div id="cart-items-container">
-  {% include "carts/includes/ticket_included_cart.html" %}
+<div class="container-cart" id="cart-items-container" style="float: right; width: 30%;">
+    <div class="tickets" id="cart-tickets-container">
+      {% include "carts/includes/ticket_included_cart.html" %}
+    </div>
+    <div class="products" id="cart-products-container">
+      {% include "carts/includes/included_cart.html" %}
+    </div>
+    <div class="card-footer" style="background-color: white;">
+      <div>
+        <h4 class="float-left my-3">Всего к оплате: <span class="float-end pe-3"><strong id="cart-price">{{total_price}}</strong> грн.</span></h4>
+      </div>
+    </div>
+    <a class="btn btn-danger w-100 btn-next" href="{% url 'cinema:products' %}">Продолжить</a>
 </div>
-<div>
-  <img class="ms-3 mt-3 float-start" src="{{session.movie.preview.url}}"
-  <h1><span style="font-size: 22px; font-weight: bold; color: white; padding-left: 9px;">{{session.movie.title}}</span></h1>
-  <p><span style="font-size: 16px; font-weight: bold; color: white; padding-left: 9px;">{{session.date}} {{session.time}}</span></p>
-  <p><span style="font-size: 16px; font-weight: bold; color: white; padding-left: 9px;">{{session.hall.number}} зал</span></p>
-</div>
+<img class="ms-3 mt-3 float-start" src="{{session.movie.preview.url}}"
+<h1><span style="font-size: 22px; font-weight: bold; color: white; padding-left: 9px;">{{session.movie.title}}</span></h1>
+<p><span style="font-size: 16px; font-weight: bold; color: white; padding-left: 9px;">{{session.date}} {{session.time}}</span></p>
+<p><span style="font-size: 16px; font-weight: bold; color: white; padding-left: 9px;">{{session.hall.number}} зал</span></p>
 <div style="position: absolute; width:36.465rem; top: 45%; left: 25%;">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 806 21" fill="white">
       <path d="M3.2,20l-2,0.2l-0.3-4l2-0.2C136.2,5.3,269.6,0,403,0s266.8,5.3,400.2,16l2,0.2l-0.3,4l-2-0.2 C669.5,9.3,536.3,4,403,4S136.4,9.3,3.2,20z"></path>

@@ -7,7 +7,7 @@ from users.models import User
 class ProductCartQueryset(models.QuerySet):
 
     def total_price(self):
-        return sum(cart.products_price() for cart in self)
+        return sum(int(cart.products_price()) for cart in self)
 
     def total_quantity(self):
         if self:
@@ -40,8 +40,13 @@ class ProductCart(models.Model):
 
 
 class TicketCartQuerySet(models.QuerySet):
+    def get_session_id(self):
+        if self:
+            return int(self[0].ticket.session.id)
+        return 0
+    
     def total_price(self):
-        return sum(cart.ticket.session.price for cart in self)
+        return sum(int(cart.ticket.session.price) for cart in self)
     
     def total_quantity(self):
         if self:
@@ -51,6 +56,7 @@ class TicketCartQuerySet(models.QuerySet):
     def movie(self):
         if self:
             return self[0].ticket.session.movie
+        
 
 
 class TicketCart(models.Model):

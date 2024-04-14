@@ -7,10 +7,9 @@ $(document).ready(function () {
     $(document).on("click", ".add-to-cart", function (e) {
         // Блокируем его базовое действие
         e.preventDefault();
-
-        // Берем элемент счетчика в значке корзины и берем оттуда значение
-        var goodsInCartCount = $("#products-in-cart-count");
-        var cartCount = parseInt(goodsInCartCount.text() || 0);
+        // Берем сумму всей корзины
+        var price_in_cart = $("#cart-price");
+        var cartPrice = parseInt(price_in_cart.text() || 0);
 
         // Получаем id товара из атрибута data-product-id
         var product_id = $(this).data("product-id");
@@ -27,22 +26,15 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
             },
             success: function (data) {
-                // Сообщение
-                successMessage.html(data.message);
-                successMessage.fadeIn(400);
-                // Через 7сек убираем сообщение
-                setTimeout(function () {
-                    successMessage.fadeOut(400);
-                }, 7000);
-            
-                // Увеличиваем количество товаров в корзине (отрисовка в шаблоне)
-                cartCount++;
-                goodsInCartCount.text(cartCount);
-
+                // Изменяю сумму корзины
+                cartPrice += data.price
+                price_in_cart.text(cartPrice);
+                // Берем корзину с билетами
+                var cartTicketsContainer = $("#cart-tickets-container");
+                cartTicketsContainer.html(data.ticket_cart_items_html);
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
-                var cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
-
+                var cartProductsContainer = $("#cart-products-container");
+                cartProductsContainer.html(data.product_cart_items_html);
             },
 
             error: function (data) {
@@ -59,10 +51,9 @@ $(document).ready(function () {
     $(document).on("click", ".remove-from-cart", function (e) {
         // Блокируем его базовое действие
         e.preventDefault();
-
-        // Берем элемент счетчика в значке корзины и берем оттуда значение
-        var goodsInCartCount = $("#products-in-cart-count");
-        var cartCount = parseInt(goodsInCartCount.text() || 0);
+        // Берем сумму всей корзины
+        var price_in_cart = $("#cart-price");
+        var cartPrice = parseInt(price_in_cart.text() || 0);
 
         // Получаем id корзины из атрибута data-cart-id
         var cart_id = $(this).data("cart-id");
@@ -79,14 +70,19 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
             },
             success: function (data) {
+                // Изменяю сумму корзины
+                cartPrice -= data.price
+                price_in_cart.text(cartPrice);
 
-                // Уменьшаем количество товаров в корзине (отрисовка)
-                cartCount -= data.quantity_deleted;
-                goodsInCartCount.text(cartCount);
-
+                // Берем корзину с билетами
+                var cartTicketsContainer = $("#cart-tickets-container");
+                cartTicketsContainer.html(data.ticket_cart_items_html);
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
-                var cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                var cartProductsContainer = $("#cart-products-container");
+                cartProductsContainer.html(data.product_cart_items_html);
+                // Меняем содержимое мест в зале
+                var placesContainer = $("#places-container");
+                placesContainer.html(data.places_html);
 
             },
 
@@ -147,15 +143,21 @@ $(document).ready(function () {
             },
 
             success: function (data) {
-                // Изменяем количество товаров в корзине
-                var goodsInCartCount = $("#products-in-cart-count");
-                var cartCount = parseInt(goodsInCartCount.text() || 0);
-                cartCount += change;
-                goodsInCartCount.text(cartCount);
+                // Берем сумму всей корзины
+                var price_in_cart = $("#cart-price");
+                var cartPrice = parseInt(price_in_cart.text() || 0);
+                // Изменяю сумму корзины
+                if (change == 1) {
+                    cartPrice += data.price
+                } else {cartPrice -= data.price}
+                price_in_cart.text(cartPrice);
 
-                // Меняем содержимое корзины
-                var cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                // Берем корзину с билетами
+                var cartTicketsContainer = $("#cart-tickets-container");
+                cartTicketsContainer.html(data.ticket_cart_items_html);
+                // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
+                var cartProductsContainer = $("#cart-products-container");
+                cartProductsContainer.html(data.product_cart_items_html);
 
             },
             error: function (data) {
@@ -180,10 +182,9 @@ $(document).ready(function () {
     $(document).on("click", ".remove-from-ticket-cart", function (e) {
         // Блокируем его базовое действие
         e.preventDefault();
-
-        // Берем элемент счетчика в значке корзины и берем оттуда значение
-        var ticketsInCartCount = $("#tickets-in-cart-count");
-        var cartCount = parseInt(ticketsInCartCount.text() || 0);
+        // Берем сумму всей корзины
+        var price_in_cart = $("#cart-price");
+        var cartPrice = parseInt(price_in_cart.text() || 0);
 
         // Получаем id сеанса из атрибута data-cart-id
         var cart_id = $(this).data("cart-id");
@@ -201,14 +202,16 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
             },
             success: function (data) {
-
-                // Уменьшаем количество товаров в корзине (отрисовка)
-                cartCount -= 1;
-                ticketsInCartCount.text(cartCount);
+                // Изменяю сумму корзины
+                cartPrice -= data.price
+                price_in_cart.text(cartPrice);
 
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
-                var cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                var cartTicketsContainer = $("#cart-tickets-container");
+                cartTicketsContainer.html(data.ticket_cart_items_html);
+                // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
+                var cartProductsContainer = $("#cart-products-container");
+                cartProductsContainer.html(data.product_cart_items_html);
                 // Меняем содержимое мест в зале
                 var placesContainer = $("#places-container");
                 placesContainer.html(data.places_html);
@@ -226,10 +229,9 @@ $(document).ready(function () {
     $(document).on("click", ".add-to-ticket-cart", function (e) {
         // Блокируем его базовое действие
         e.preventDefault();
-
-        // Берем элемент счетчика в значке корзины и берем оттуда значение
-        var ticketsInCartCount = $("#tickets-in-cart-count");
-        var cartCount = parseInt(ticketsInCartCount.text() || 0);
+        // Берем сумму всей корзины
+        var price_in_cart = $("#cart-price");
+        var cartPrice = parseInt(price_in_cart.text() || 0);
 
         // Получаем id сеанса из атрибута data-cart-id
         var session_id = $(this).data("session-id");
@@ -252,21 +254,16 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
             },
             success: function (data) {
-                // Сообщение
-                successMessage.html(data.message);
-                successMessage.fadeIn(400);
-                // Через 7сек убираем сообщение
-                setTimeout(function () {
-                    successMessage.fadeOut(400);
-                }, 7000);
+                // Изменяю сумму корзины
+                cartPrice += data.price
+                price_in_cart.text(cartPrice);
             
-                // Увеличиваем количество товаров в корзине (отрисовка в шаблоне)
-                cartCount++;
-                ticketsInCartCount.text(cartCount);
-
                 // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
-                var cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                var cartTicketsContainer = $("#cart-tickets-container");
+                cartTicketsContainer.html(data.ticket_cart_items_html);
+                // Меняем содержимое корзины на ответ от django (новый отрисованный фрагмент разметки корзины)
+                var cartProductsContainer = $("#cart-products-container");
+                cartProductsContainer.html(data.product_cart_items_html);
                 // Меняем содержимое мест в зале
                 var placesContainer = $("#places-container");
                 placesContainer.html(data.places_html);

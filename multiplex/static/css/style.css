@@ -9,9 +9,7 @@ form input::placeholder {
 }
 
 img.logo {
-    position: relative;
-    height: 60px;
-    left: 50px;
+    width: 100px;
 }
 
 header.p-3 {
@@ -19,16 +17,14 @@ header.p-3 {
 }
 
 img.menu {
-    position: relative;
     height: 50px;
     width: auto;
-    right: 100px;
 }
 
 .btn-primary {
     --bs-btn-active-bg: none;
 }
-
+    
 /* Добавленный стиль для кнопки "Искать" */
 form button.btn-outline-success {
     color: red !important;           /* Цвет текста */
@@ -43,10 +39,8 @@ form button.btn-outline-success:hover {
 }
 
 button.btn.btn-primary {
-    position: absolute;
     background: none;
     border: none;
-    left: 100px;
 }
 
 div.offcanvas-header {
@@ -74,13 +68,6 @@ div.offcanvas-header {
     border-radius: 16px;
 }
 
-img.off-canvas-logo {
-    position: relative;
-    top: 10px;
-    left: 67px;
-    width: 240px;
-    height: auto;
-}
 
 div.offcanvas-body {
     background-color: RGBA(var(--bs-dark-rgb), var(--bs-bg-opacity, 1));
@@ -329,8 +316,15 @@ a.display-5:hover {
     font-size: 16px;
 }
 
+.breadcrumb-item span {
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
 .breadcrumb-item a:hover {
-    color: red;
+    color: red !important;
     text-decoration: none;
 }
 
@@ -344,8 +338,8 @@ a.display-5:hover {
     height: calc(100vh - 160px);
 }
 
-.breadcrumb-item.active {
-  color: #696969;
+.breadcrumb-item.active a {
+  color: #000 !important;
 }
 
 .movie_info {
@@ -901,4 +895,30 @@ ul {
   background-color: #333;
   color: white;
   text-align: center;
+}
+
+
+.container-cart {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tickets {
+    order: 1; /* "Ваши билеты" will be first */
+  }
+  
+  .products {
+    order: 2; /* "Ваши товары" will be second */
+  }
+
+  .btn-next {
+    order: 4;
+  }
+
+.card-footer {
+    order: 3;
+}
+
+a.custom-cursor:hover {
+    cursor: url('path-to-your-cursor-image.png'), auto;
 }

@@ -1,11 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from . import services
-from .utils import get_places
-from .models import Movie, Session
-# from cart.forms import CartAddProductForm
 
-# from cart.cart import Cart, ProductCart
+from carts.utils import get_user_ticket_carts, get_user_carts
+from . import services
+from .models import Movie, Session
 
 
 def home_view(request):
@@ -72,15 +70,21 @@ def soon_movies(request):
 
 def show_products(request):
     """Отображение товаров"""
-
     products = services.get_products()
-    return render(request, 'cinema/products.html', {'products': products})
+    ticket_carts = get_user_ticket_carts(request)
+    product_carts = get_user_carts(request)
+    total_price = ticket_carts.total_price() + product_carts.total_price()
+    return render(request, 'cinema/products.html', {'products': products, 'total_price': total_price, 'ticket_carts': ticket_carts})
 
 
 def select_place(request, session_id):
     session = Session.objects.get(id=session_id)
+    ticket_carts = get_user_ticket_carts(request)
+    product_carts = get_user_carts(request)
+    total_price = ticket_carts.total_price() + product_carts.total_price()
     return render(request, 'cinema/select_place.html', {
         'session': session,
+        'total_price': total_price
     })
 
 

@@ -12,14 +12,16 @@
 
 </head>
 
+{% block header %}
 <header class="p-3 text-bg-dark">
 	<div class="container-fluid">
 		<div class="d-flex align-items-center justify-content-between">
-			<div> <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                        <img class="menu" src="{% static 'images/menu.svg' %}" alt="Multiplex">
-                    </button>
+			<div> 
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                    <img class="menu" src="{% static 'images/menu.svg' %}" alt="Multiplex">
+                </button>
 				<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-					<div class="offcanvas-header"> <img class="off-canvas-logo" src="{% static 'images/logo.svg' %}" alt="Multiplex"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
+					<div class="offcanvas-header"> <img class="off-canvas-logo" style="padding-left: 20%; padding-top: 10%;" src="{% static 'images/logo.svg' %}" alt="Multiplex"> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> </div>
 					<div class="offcanvas-body">
 						<div class="list">
                             <a href="/movies/now/">Сейчас в кино</a>
@@ -29,7 +31,7 @@
                             <a href="#">Возврат билетов</a> <a href="#">Помощь</a>
                             <a href="#">О компании</a>
                         </div>
-						<div class="menu-block-heading">Личный кабинет <button type="button" class="btn btn-outline-light mt-2">Войти</button> </div>
+						<div class="menu-block-heading">Личный кабинет <a href="{% url 'users:login' %}"><button type="button" class="btn btn-outline-light mt-2">Войти</button></a> </div>
 						<div class="menu-block-heading">Мы в социальных сетях <a class="menu_soc_item" href="https://www.facebook.com/uamultiplex" rel="nofollow" target="_blank">
                                 <svg fill="none" height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.0422 22V14.4923H10V11.7892H12.0422V9.4804C12.0422 7.66611 13.2486 6 16.0282 6C17.1537 6 17.9859 6.10488 17.9859 6.10488L17.9203 8.62914C17.9203 8.62914 17.0716 8.6211 16.1454 8.6211C15.143 8.6211 14.9824 9.07014 14.9824 9.81544V11.7892H18L17.8687 14.4923H14.9824V22H12.0422Z" fill="white"></path>
@@ -64,7 +66,7 @@
                               </a> </div>
 					</div>
 				</div>
-                <a href="{% url 'cinema:home' %}" class="text-white text-decoration-none">
+                <a href="{% url 'cinema:home' %}">
                     <img class="logo" src="{% static 'images/logo.svg' %}" alt="Multiplex">
                 </a>
             </div>
@@ -89,6 +91,7 @@
 		</div>
 	</div>
 </header>
+{% endblock %}
 
 <body>
     {% block content %} {% endblock %}
