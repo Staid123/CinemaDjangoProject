@@ -3,12 +3,20 @@ from django.contrib import admin
 from .models import ProductCart, TicketCart
 
 # admin.site.register(ProductCart)
-admin.site.register(TicketCart)
+# admin.site.register(TicketCart)
 
 class ProductCartTabAdmin(admin.TabularInline):
     model = ProductCart
     fields = "product", "quantity", "created_timestamp"
     search_fields = "product", "quantity", "created_timestamp"
+    readonly_fields = ("created_timestamp",)
+    extra = 1
+
+
+class TicketCartTabAdmin(admin.TabularInline):
+    model = TicketCart
+    fields = "ticket", "created_timestamp"
+    search_fields = "ticket", "created_timestamp"
     readonly_fields = ("created_timestamp",)
     extra = 1
 
@@ -25,4 +33,6 @@ class ProductCartsAdmin(admin.ModelAdmin):
         if obj.user:
             return str(obj.user)
         return "Анонимный пользователь"
+    
+
 

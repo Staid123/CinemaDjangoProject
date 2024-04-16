@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.db.models import Prefetch
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.contrib import auth, messages
 from carts.models import ProductCart, TicketCart
+from orders.models import Order, OrderTicketItem, OrderProductItem
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm
 
 
@@ -67,7 +69,25 @@ def profile(request):
             return redirect('users:profile')
     else:
         form = ProfileUserForm(instance=request.user)
-    return render(request, 'users/profile.html', {'form': form})
+    
+    orders = Order.objects.filter(user=request.user).prefetch_related(
+                Prefetch(
+                    "orderproductitem_set",
+                    queryset=OrderProductItem.objects.select_related("product"),
+                ),
+                Prefetch(
+                    "orderticketitem_set",
+                    queryset=OrderTicketItem.objects.select_related("ticket"),
+                )
+            ).order_by("-id")
+        
+
+    context = {
+        'title': 'Home - Кабинет',
+        'form': form,
+        'orders': orders,
+    }
+    return render(request, 'users/profile.html', context)
 
 
 

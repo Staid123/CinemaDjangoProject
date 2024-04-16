@@ -111,7 +111,7 @@ class Ticket(models.Model):
         verbose_name_plural = 'Билеты'
 
     def __str__(self):
-        return f'Билет {self.pk} | Зал {self.session.hall.number} | Ряд {self.row} Место {self.place}'
+        return f'Фильм {self.session.movie.title} | Зал {self.session.hall.number} | Ряд {self.row} | Место {self.place}'
 
 
 class Product(models.Model):

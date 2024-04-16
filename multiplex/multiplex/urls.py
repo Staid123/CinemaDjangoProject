@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('cinema.urls', namespace="cinema")),
     path('users/', include('users.urls', namespace="users")),
     path('cart/', include('carts.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
     path("__debug__/", include("debug_toolbar.urls")),
     path('social-auth/', include('social_django.urls', namespace='social')),
 ]

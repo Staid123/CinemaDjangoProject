@@ -10,7 +10,11 @@
         </a>
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); margin-right: 68%; margin-top: 1%;" aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a style="color: black;" href="{% url 'cinema:select_place' ticket_carts.get_session_id %}">Места</a></li>
+          {% if ticket_carts %}
+          <li class="breadcrumb-item"><a style="color: black;" href="{% url 'cinema:select_place' ticket_carts.get_session_id %}">Места</a></li>
+          {% else %}
+          <li class="breadcrumb-item"><span style="cursor: not-allowed; color: black;">Места</span></li></li>
+          {% endif %}
             <li class="breadcrumb-item active"><span style="cursor: not-allowed; color: black;">Товары бара</span></li></li>
             <li class="breadcrumb-item" aria-current="page"><span style="cursor: not-allowed; color: black;">Оплата</span></li>
           </ol>
@@ -39,8 +43,12 @@
   </div>
   <div class="card-footer" style="background-color: white;">
     <h4 class="float-left my-3">Всего к оплате: <span class="float-end pe-3"><strong id="cart-price">{{total_price}}</strong> грн.</span></h4>
+    {% if total_price > 0 %}
+      <a class="btn btn-success w-100 btn-next" style="border-radius: 0;" href="{% url 'orders:create_order' %}">Оформить заказ</a>
+    {% else %}
+      <span class="btn btn-success w-100 btn-next" style="border-radius: 0; cursor: not-allowed;">Оформить заказ</span>
+    {% endif %}
   </div>
-  <a class="btn btn-success w-100 btn-next" href="{% url 'cinema:products' %}">Оформить заказ</a>
 </div>
      <div class="products-container" style="width: 70%; float:left;">
         {% for product in products %}

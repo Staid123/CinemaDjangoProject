@@ -43,7 +43,6 @@ class TicketCartQuerySet(models.QuerySet):
     def get_session_id(self):
         if self:
             return int(self[0].ticket.session.id)
-        return 0
     
     def total_price(self):
         return sum(int(cart.ticket.session.price) for cart in self)

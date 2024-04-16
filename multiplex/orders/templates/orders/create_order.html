@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% load carts_tags %}
+
+
+
+{% block header %}
+<header class="p-3 text-bg-light">
+	<div class="container-fluid">
+		<div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'cinema:home' %}">
+          <img class="logo" src="{% static 'images/logo.svg' %}" alt="Multiplex">
+        </a>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); margin-right: 68%; margin-top: 1%;" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><span style="cursor: not-allowed; color: black;">Места</span></li>
+            <li class="breadcrumb-item"><a style="color: black;" href="{% url 'cinema:products' %}">Товары бара</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span style="cursor: not-allowed; color: black;">Оплата</span></li>
+          </ol>
+        </nav>
+        <div class="d-flex align-items-center">
+          {% if user.is_authenticated %}
+            <a href="{% url 'users:profile' %}"><button type="button" class="btn btn-dark me-2">{{user.username}}</button></a>
+            <a href="{% url 'users:logout' %}"><button type="button" class="btn btn-warning">Выйти</button></a>
+          {% else %}
+            <a href="{% url 'users:login' %}"><button type="button" class="btn btn-outline-light me-2">Войти</button></a>
+            <a href="{% url 'users:register' %}"><button type="button" class="btn btn-warning">Регистрация</button></a>
+          {% endif %}
+        </div>
+		</div>
+	</div>
+</header>
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<div class="bg-white p-4 mb-4">
+    <div class="container">
+        <h3 class="text-center mb-4">Выбранные товары</h3>
+        <div class="container" style="display: flex; flex-direction: row;" id="cart-items-container">
+            <!-- Разметка корзины -->
+            {% user_product_carts request as carts %}
+            {% include "carts/includes/included_cart.html" %}
+            {% user_ticket_carts request as carts %}
+            {% include "carts/includes/ticket_included_cart.html" %}
+            <!-- Закончилась разметка корзины -->
+        </div>
+        <h4 class="float-left my-3">Всего к оплате: <span class="float-end pe-3"><strong id="cart-price">{{total_price}}</strong> грн.</span></h4>
+    </div>
+    <!-- Детали заказа -->
+    <div class="container">
+        <h3 class="text-center">Детали заказа</h3>
+        <div class="card mb-3">
+            <div class="card-body">
+                <form action="{% url "orders:create_order" %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name" class="form-label">Имя*:</label>
+                            <input type="text" class="form-control" id="id_first_name"
+                                value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+                                placeholder="Введите ваше имя"
+                                name="first_name" required>
+                            {% if form.first_name.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_phone_number" class="form-label">Номер телефона*:</label>
+                            <input type="text" class="form-control" id="id_phone_number" name="phone_number"
+                                value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
+                                placeholder="В формате: XXX-XXX-XX-XX"
+                                required>
+                            {% if form.phone_number.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.phone_number.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_email" class="form-label">Електронная почта*:</label>
+                            <input type="text" class="form-control" id="id_email" name="email"
+                                value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+                                placeholder="В формате: yourEmail@gmail.com"
+                                required>
+                            {% if form.email.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.email.errors}}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
