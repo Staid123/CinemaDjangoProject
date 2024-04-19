@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -86,14 +86,25 @@ WSGI_APPLICATION = 'multiplex.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'multiplex',
+#         'USER': 'multiplex',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'multiplex',
-        'USER': 'multiplex',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'HOST': os.environ.get('DB_HOST'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        #  'PORT': 5432,
     }
 }
 
@@ -196,3 +207,7 @@ LOGIN_URL = "/users/login"
 
 MY_SUPER_ERROR = 80
 MESSAGE_LEVEL = MY_SUPER_ERROR
+
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+# CELERY_BROKER_URL = 'amqp://user:**@rabbitmq:5672//:'

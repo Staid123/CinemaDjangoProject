@@ -1,0 +1,63 @@
+services:
+  web-app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./multiplex:/multiplex
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbname
+      - DB_USER=dbuser
+      - DB_PASS=pass
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - database
+
+
+  database:
+    image: postgres:14.6-alpine
+    environment:
+      - POSTGRES_DB=dbname
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=pass
+
+
+  redis:
+    image: redis:7.0.5-alpine
+    hostname: redis
+
+
+  worker:
+    build: .
+    hostname: worker
+    entrypoint: celery
+    command: -A multiplex.celery.app worker --loglevel=info
+    volumes:
+      - ./multiplex:/multiplex
+    links:
+      - redis
+    depends_on:
+      - redis
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbname
+      - DB_USER=dbuser
+      - DB_PASS=pass
+
+
+  flower:
+    build: .
+    hostname: flower
+    entrypoint: celery
+    command: -A multiplex.celery.app flower
+    volumes:
+      - ./multiplex:/multiplex
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports:
+      - "5555:5555"
