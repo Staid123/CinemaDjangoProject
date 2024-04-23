@@ -15,11 +15,11 @@ admin.site.site_header = "Панель администрирования"
 @admin.register(Genre)
 class GenresAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('name', )}
-    list_display = ['id', 'name']
-    list_editable = ['name']
-    search_fields = ['name']
-    list_filter: list[str] = ['name']
-    fields = ['name']
+    list_display = ['id', 'name', 'slug']
+    list_editable = ['name', 'slug']
+    search_fields = ['name', 'slug']
+    list_filter: list[str] = ['name', 'slug']
+    fields = ['name', 'slug']
 
 
 @admin.register(Movie)
@@ -38,13 +38,16 @@ class MoviesAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'discount']
-    list_editable = ['price', 'discount']
-    search_fields = ['name']
-    list_filter = ['name', 'price', 'discount']
+    prepopulated_fields = {"slug": ('name', )}
+    list_display = ['name', 'price', 'discount', 'slug']
+    list_editable = ['price', 'discount', 'slug']
+    search_fields = ['name', 'slug']
+    list_filter = ['name', 'price', 'discount', 'slug']
     fields = [
         'name',
-        ('price', 'discount')
+        ('price', 'discount'),
+        'photo',
+        'slug'
     ]
 
 

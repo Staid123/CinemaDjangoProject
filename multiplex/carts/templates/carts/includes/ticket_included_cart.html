@@ -20,7 +20,7 @@
                         <p>{{ cart.ticket.row }} ряд {{ cart.ticket.place }} место <strong>{{ cart.ticket.session.price }} грн.</strong></p>
                     </div>
                     <div class="col p-0">
-                        {% if "product" not in request.path and "order" not in request.path %}
+                        {% if "order" not in request.path %}
                             <a href="{% url 'carts:ticket_cart_remove' %}" class="remove-from-ticket-cart" style="margin-left: 48%;"
                             data-cart-id="{{ cart.id }}">
                                 {% csrf_token %}

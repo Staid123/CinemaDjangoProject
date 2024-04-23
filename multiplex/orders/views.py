@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from carts.utils import get_user_carts, get_user_ticket_carts
 from orders.forms import CreateOrderForm
 from orders.models import Order, OrderProductItem, OrderTicketItem
+from orders.tasks import send_message_email
 
 
 @login_required
@@ -21,14 +22,13 @@ def create_order(request):
             try:
                 with transaction.atomic():
                     user = request.user
-                    product_cart_items = ticket_carts
-                    ticket_cart_items = product_carts
+                    product_cart_items = product_carts
+                    ticket_cart_items = ticket_carts
 
                     if product_cart_items.exists() or ticket_cart_items.exists():
                         # Создать заказ
                         order = Order.objects.create(
                             user=user,
-                            phone_number=form.cleaned_data['phone_number'],
                             email=form.cleaned_data['email']
                         )
                         # Создать заказанные товары
@@ -56,13 +56,14 @@ def create_order(request):
                             )
 
                         # Очистить корзину пользователя после создания заказов
+                        send_message_email.delay(order.id)
                         product_cart_items.delete()
                         ticket_cart_items.delete()
-                        messages.success(request, 'Заказ оформлен!')
+                        messages.success(request, 'Сообщение с заказом отправлено на вашу почту!')
                         return redirect('users:profile')
             except Exception as e:
                 messages.success(request, str(e))
-                return redirect('carts:create_order')
+                return redirect('orders:create_order')
 
     else:
         initial = {

@@ -5,7 +5,6 @@ from django import forms
 class CreateOrderForm(forms.Form):
 
     first_name = forms.CharField()
-    phone_number = forms.CharField()
     email = forms.EmailField()
 
     def clean_phone_number(self):

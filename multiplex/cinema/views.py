@@ -73,8 +73,7 @@ def show_products(request):
     products = services.get_products()
     ticket_carts = get_user_ticket_carts(request)
     product_carts = get_user_carts(request)
-    total_price = ticket_carts.total_price() + product_carts.total_price()
-    return render(request, 'cinema/products.html', {'products': products, 'total_price': total_price, 'ticket_carts': ticket_carts})
+    return render(request, 'cinema/products.html', {'products': products, 'ticket_carts': ticket_carts})
 
 
 def select_place(request, session_id):

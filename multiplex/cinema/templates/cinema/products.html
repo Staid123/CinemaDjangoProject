@@ -43,11 +43,7 @@
   </div>
   <div class="card-footer" style="background-color: white;">
     <h4 class="float-left my-3">Всего к оплате: <span class="float-end pe-3"><strong id="cart-price">{{total_price}}</strong> грн.</span></h4>
-    {% if total_price > 0 %}
-      <a class="btn btn-success w-100 btn-next" style="border-radius: 0;" href="{% url 'orders:create_order' %}">Оформить заказ</a>
-    {% else %}
-      <span class="btn btn-success w-100 btn-next" style="border-radius: 0; cursor: not-allowed;">Оформить заказ</span>
-    {% endif %}
+    <a class="btn btn-success w-100 btn-next" style="border-radius: 0;" href="{% url 'orders:create_order' %}">Оформить заказ</a>
   </div>
 </div>
      <div class="products-container" style="width: 70%; float:left;">
