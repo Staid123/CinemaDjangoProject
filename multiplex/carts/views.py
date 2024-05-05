@@ -4,11 +4,14 @@ from cinema.models import Product, Ticket, Session
 from cinema.utils import get_places
 from carts.models import ProductCart, TicketCart
 from carts.utils import get_user_carts, get_user_ticket_carts
-
-
+from carts.tasks import clear_carts
 
 
 def product_cart_add(request):
+    clear_carts.apply_async(kwargs={
+        'user_id': request.user.id, 
+        'session_key': request.session.session_key
+    }, countdown=420)
     product_id = request.POST.get('product_id')
     product = Product.objects.get(id=product_id)
     if request.user.is_authenticated:
@@ -51,6 +54,10 @@ def product_cart_add(request):
 
 
 def product_cart_change(request):
+    clear_carts.apply_async(kwargs={
+        'user_id': request.user.id, 
+        'session_key': request.session.session_key
+    }, countdown=420)
     cart_id = request.POST.get("cart_id")
     quantity = request.POST.get("quantity")
 
@@ -78,6 +85,10 @@ def product_cart_change(request):
 
 
 def product_cart_remove(request):
+    clear_carts.apply_async(kwargs={
+        'user_id': request.user.id, 
+        'session_key': request.session.session_key
+    }, countdown=420)
     cart_id = request.POST.get('cart_id')
     cart = ProductCart.objects.get(id=cart_id)
     price = cart.product.sell_price() * cart.quantity
@@ -103,11 +114,18 @@ def product_cart_remove(request):
 
 
 def ticket_cart_add(request):
+
+    clear_carts.apply_async(kwargs={
+        'user_id': request.user.id, 
+        'session_key': request.session.session_key
+    }, countdown=420)
+
     session_id = request.POST.get('session_id')
     row = request.POST.get('row')
     place = request.POST.get('place')
     session = Session.objects.get(id=session_id)
     ticket = Ticket.objects.create(session=session, row=row, place=place)
+    
 
     if request.user.is_authenticated:
         TicketCart.objects.create(user=request.user, ticket=ticket)
@@ -141,6 +159,10 @@ def ticket_cart_add(request):
 
 
 def ticket_cart_remove(request):
+    clear_carts.apply_async(kwargs={
+        'user_id': request.user.id, 
+        'session_key': request.session.session_key
+    }, countdown=420)
     cart_id = request.POST.get('cart_id')
     cart = TicketCart.objects.get(id=cart_id)
     session_id = cart.ticket.session.id

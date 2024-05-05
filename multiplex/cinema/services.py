@@ -38,12 +38,21 @@ def get_soon_movies() -> QuerySet:
     return models.Movie.objects.filter(status=models.Movie.STATUS_CHOICES[0][0]).order_by('start_of_rental')
 
 
-def get_random_movies(exclude_movie) -> QuerySet:
+def get_random_published_movies(exclude_movie) -> QuerySet:
     """
-    Получаем три случайных фильма, исключая переданный movie,
+    Получаем 5 случайных фильма, исключая переданный movie,
     с сортировкой по времени создания в обратном порядке
     """
-    random_movies = models.Movie.objects.exclude(id=exclude_movie.id).order_by('start_of_rental')[:5]
+    random_movies = models.Movie.objects.filter(status="Опубликован").exclude(id=exclude_movie.id).order_by('start_of_rental')[:5]
+    return random_movies
+
+
+def get_random_soon_movies(exclude_movie) -> QuerySet:
+    """
+    Получаем 5 случайных фильма, исключая переданный movie,
+    с сортировкой по времени создания в обратном порядке
+    """
+    random_movies = models.Movie.objects.filter(status="Скоро в прокате").exclude(id=exclude_movie.id).order_by('start_of_rental')[:5]
     return random_movies
 
 

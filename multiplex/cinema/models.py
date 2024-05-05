@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
-from datetime import date
+from datetime import date, datetime, timedelta
+from cinema.tasks import delete_session, rewrite_movie_status
 
 
 class Movie(models.Model):
@@ -41,12 +42,20 @@ class Movie(models.Model):
     def save(self, *args, **kwargs):
         if date.today() < self.start_of_rental:
             self.status = self.STATUS_CHOICES[0][0]
+            run_at = self.start_of_rental
+            new_status = self.STATUS_CHOICES[1][0]
         elif self.start_of_rental <= date.today() <= self.end_of_rental:
             self.status = self.STATUS_CHOICES[1][0]
+            run_at = self.end_of_rental + timedelta(hours=23)
+            new_status = self.STATUS_CHOICES[2][0]
         else:
             self.status = self.STATUS_CHOICES[2][0]
-
-        super().save(*args, **kwargs)
+        if not self.id:
+            super().save(*args, **kwargs)
+            rewrite_movie_status.apply_async(args=(self.id, new_status), eta=run_at)
+        else:
+            super().save(*args, **kwargs)
+        
 
     def get_absolute_url(self):
         return reverse('cinema:movie', kwargs={'movie_slug': self.slug})
@@ -85,6 +94,11 @@ class Session(models.Model):
     def __str__(self):
         hall_number = self.hall.number if self.hall else "N/A"
         return f'{self.pk} {self.date} {self.time}, Зал {hall_number} Фильм {self.movie.title}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        run_at = datetime.now() + timedelta(seconds=7)
+        delete_session.apply_async(args=(self.id, ), eta=run_at)
 
 
 class Hall(models.Model):

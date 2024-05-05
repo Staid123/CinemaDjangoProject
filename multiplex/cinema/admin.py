@@ -28,7 +28,7 @@ class MoviesAdmin(admin.ModelAdmin):
     list_display = ['title', 'start_of_rental', 'end_of_rental', 'status']
     list_editable = ['start_of_rental', 'end_of_rental', 'status']
     search_fields = ['title', 'status']
-    list_filter: list[str] = ['title']
+    list_filter: list[str] = ['title', 'status']
     fields = [
             'title', 'slug', 'genre', 'start_of_rental', 'end_of_rental', 'preview', 'status',
             'years', 'description',  'language', 'release_year', 

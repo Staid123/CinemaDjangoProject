@@ -23,7 +23,8 @@ def show_post(request, movie_slug):
     hours, remainder = divmod(int(movie.duration), 60)
     movie.duration = f"{hours}:{remainder:02d}"
 
-    movies = services.get_random_movies(movie)
+    published_movies = services.get_random_published_movies(movie)
+    soon_movies = services.get_random_soon_movies(movie)
 
     sessions = Session.objects.filter(movie=movie).order_by('date', 'time')
     sessions_by_date = {}
@@ -33,7 +34,7 @@ def show_post(request, movie_slug):
             sessions_by_date[session.date] = []
         sessions_by_date[session.date].append({session.id: session.time})
 
-    return render(request, 'cinema/post.html', {'movie': movie, 'movies': movies, 'sessions': sessions_by_date})
+    return render(request, 'cinema/post.html', {'movie': movie, 'published_movies': published_movies, 'soon_movies': soon_movies, 'sessions': sessions_by_date})
 
 
 def show_movies(request, status):
@@ -72,7 +73,6 @@ def show_products(request):
     """Отображение товаров"""
     products = services.get_products()
     ticket_carts = get_user_ticket_carts(request)
-    product_carts = get_user_carts(request)
     return render(request, 'cinema/products.html', {'products': products, 'ticket_carts': ticket_carts})
 
 
