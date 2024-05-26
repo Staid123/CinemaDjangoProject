@@ -18,15 +18,32 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from . import settings
+from rest_framework import routers
+from api import views
+
+
+
+router = routers.DefaultRouter()
+router.register(r'movie', views.MovieViewSet, basename='movie')
+router.register(r'genre', views.GenreViewSet, basename='genre')
+router.register(r'session', views.SessionViewSet, basename='session')
+router.register(r'hall', views.HallViewSet, basename='hall')
+router.register(r'ticket', views.TicketViewSet, basename='ticket')
+router.register(r'product', views.ProductViewSet, basename='product')
+router.register(r'productcart', views.ProductCartViewSet, basename='productcart')
+router.register(r'user', views.UserViewSet, basename='user')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
     path('', include('cinema.urls', namespace="cinema")),
     path('users/', include('users.urls', namespace="users")),
     path('cart/', include('carts.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path("__debug__/", include("debug_toolbar.urls")),
     path('social-auth/', include('social_django.urls', namespace='social')),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 if settings.DEBUG:

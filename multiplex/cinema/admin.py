@@ -62,10 +62,17 @@ class HallsAdmin(admin.ModelAdmin):
 
 @admin.register(Session)
 class SessionsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'movie', 'date', 'time', 'hall', 'price']
-    list_editable = ['movie', 'date', 'time', 'hall', 'price']
-    list_filter: list[str] = ['movie__title', 'date', 'hall']
-    
+    list_display = ['id', 'published_movie', 'date', 'time', 'hall', 'price']
+    list_editable = ['date', 'time', 'hall', 'price']
+    list_filter = ['movie__title', 'date', 'hall']
+
+    @admin.display(description="Фильм (Опубликован)")
+    def published_movie(self, obj):
+        return obj.movie.title if obj.movie.status == 'Опубликован' else None
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(movie__status='Опубликован')
 
 @admin.register(Ticket)
 class TicketsAdmin(admin.ModelAdmin):

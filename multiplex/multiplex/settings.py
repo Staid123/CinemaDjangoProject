@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'social_django',
     'carts',
     'orders',
+    'api.apps.ApiConfig',
+
+    'rest_framework',
 
 ]
 

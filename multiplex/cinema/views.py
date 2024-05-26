@@ -24,7 +24,7 @@ def show_post(request, movie_slug):
     movie.duration = f"{hours}:{remainder:02d}"
 
     published_movies = services.get_random_published_movies(movie)
-    soon_movies = services.get_random_soon_movies(movie)
+    soon1_movies = services.get_random_soon_movies(movie)
 
     sessions = Session.objects.filter(movie=movie).order_by('date', 'time')
     sessions_by_date = {}
@@ -34,7 +34,7 @@ def show_post(request, movie_slug):
             sessions_by_date[session.date] = []
         sessions_by_date[session.date].append({session.id: session.time})
 
-    return render(request, 'cinema/post.html', {'movie': movie, 'published_movies': published_movies, 'soon_movies': soon_movies, 'sessions': sessions_by_date})
+    return render(request, 'cinema/post.html', {'movie': movie, 'published_movies': published_movies, 'soon_movies': soon1_movies, 'sessions': sessions_by_date})
 
 
 def show_movies(request, status):

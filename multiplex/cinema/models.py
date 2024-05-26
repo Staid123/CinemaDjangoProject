@@ -97,7 +97,7 @@ class Session(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        run_at = datetime.now() + timedelta(seconds=7)
+        run_at = datetime.combine(self.date, self.time)
         delete_session.apply_async(args=(self.id, ), eta=run_at)
 
 
